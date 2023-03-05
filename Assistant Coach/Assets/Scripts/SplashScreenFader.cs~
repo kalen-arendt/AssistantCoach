@@ -1,0 +1,46 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class SplashScreenFader : ScreenFader {
+
+	[SerializeField] private bool 	loadNextScene 	= true;
+	[SerializeField] private bool		stateAfterFade	= true;
+	[SerializeField] private float 	fadeInDuration 	= 1;
+	[SerializeField] private float 	timeBetween 	= 0;
+	[SerializeField] private float 	fadeOutDuration	= 1;
+
+
+	protected override void Awake(){;} //over-writes this so that the fade panel isn't turned off 
+
+	void OnEnable ()
+	{
+		Fade(FadeType.FadeIn, fadeInDuration, stateAfterFade);
+	}
+
+
+	protected override IEnumerator AfterFading(FadeType fadeType)
+	{
+		if (fadeOutDuration == 0 || fadeType == FadeType.FadeOut) // if it only fades in, or if its fading out...
+		{
+			if (loadNextScene)
+			{
+				Utility.LoadNextLevel();
+			}
+
+			if (!stateAfterFade)
+			{
+				Destroy(gameObject);
+			}
+
+			yield break;
+		}
+		else
+		{
+			yield return new WaitForSecondsRealtime(timeBetween);
+			Fade(FadeType.FadeOut, fadeOutDuration, stateAfterFade);
+		}		
+	}
+}

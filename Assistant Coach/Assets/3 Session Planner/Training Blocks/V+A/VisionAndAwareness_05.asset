@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: VisionAndAwareness_05
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: a24acba3209b3cb4fa43e1d98b47a0b8, type: 3}
+  minAge: 9
+  maxAge: 14
+  type: 0
+  MajorTopics: 09000000
+  MinorTopics: 
+  description: "Detail\r\n10-12x12-15 box with a 3x3x3traingle in the middle, playing
+    5v2.\r\nPossession team scores a point by connecting 7 consecutive passes but
+    gets 3pts if they can find the central player inside the triangle and have them
+    connect back out. \r\nProgressions\r\nOnly give points for connecting with the
+    central player in the triangle.\r\nOnly get the 3pts if the central player plays
+    out a side they did not receive through. \r\nAdaptations\r\nN/A\r\n"

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: VisionAndAwareness_02
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: b6b0799ee6676c649a9a303b39f72dee, type: 3}
+  minAge: 9
+  maxAge: 14
+  type: 0
+  MajorTopics: 09000000
+  MinorTopics: 
+  description: "Detail\r\nPlayers check to the ball then step out to open up one side
+    or the other. They return the ball to the passer. Part 2: Player at the far end
+    holds up a hand and that is the side the player must open up to. Part 3: Player
+    at far end holds up a hand with a fist or a 5. If fist play back, if 5 turn and
+    dribble/pass. Player at far end collects and dribble then passes to start the
+    sequence over. Make sure to rotate the server. \r\nProgressions\r\nSee diagram.
+    \r\nAdaptations\r\nN/A\r\n"

@@ -1,0 +1,90 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+public class BaseOutputSessionManager : MonoBehaviour {
+
+
+
+	//Components
+
+	[SerializeField] protected Transform	parent;
+	[SerializeField] protected GameObject	template;
+
+	[SerializeField] protected Text	age;
+	[SerializeField] protected Text 	summary;
+	[SerializeField] protected Text 	date;
+	[SerializeField] protected Text 	time;
+	[SerializeField] protected Button 	layoutToggle;
+
+
+
+	//Objects
+
+	protected ApplicationController appController;
+
+
+
+	//Fields
+
+	protected static bool portrait = false;
+
+
+
+	//Methods
+
+	void OnEnable ()
+	{
+		appController = FindObjectOfType<ApplicationController> ();
+		ToggleSprite ();
+	}
+
+
+	public void ShowSessionData (Date Date, string Summary, string Age, int Time)
+	{
+		date.text = Date.LongDateS ();
+		summary.text = Summary;
+		age.text = Age;
+		time.text = Time + "min";
+	}
+
+
+	public void ToggleLayouts ()
+	{
+		if (portrait) portrait = false;
+		else portrait = true;
+
+		var childDrills = GetComponentsInChildren<BaseDrillDisplay> ();
+
+		foreach (var drill in childDrills)
+		{
+			drill.ToggleLayoutType ();
+		}
+
+		ToggleSprite ();
+	}
+
+
+	void ToggleSprite ()
+	{
+		Vector3 angles = layoutToggle.transform.localRotation.eulerAngles;
+
+		if (!portrait)
+			angles.z = 0;
+		else
+			angles.z = 90;
+
+		var t = layoutToggle.transform;
+		t.localEulerAngles = angles;
+	}
+
+
+	protected void SetAllLayouts ()
+	{
+		var childDrills = GetComponentsInChildren<BaseDrillDisplay> ();
+
+		foreach (BaseDrillDisplay drill in childDrills)
+			if (drill.Portrait != portrait)
+				drill.ToggleLayoutType ();
+	}
+
+}

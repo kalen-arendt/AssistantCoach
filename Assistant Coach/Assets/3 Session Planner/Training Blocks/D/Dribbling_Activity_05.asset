@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: Dribbling_Activity_05
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: f9aa2bb7aeac66c4781962632cdd781f, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 
+  MinorTopics: 
+  description: "Detail\r\nFor the first 10 minutes players will be dribbling within
+    a 15x15 yard box, coach will tell players different skills/activities to do (U10:
+    touch ball with weak foot, 10 toe touches, 10 foundation touches, 10 combination
+    U12: touch ball with weak foot, every step a touch, 10 triangles each foot, 10
+    stationary scissors U14: touch ball with weak foot, every step a touch, only use
+    the sole, 10 juggles alternating feet, 10 triangles). The next 10 minutes split
+    group into 4 equal groups. Each group will start on one line of the square. At
+    the same time players will all dribble across, get to the line across from the
+    line they started on, turn around and go back (continuously).  While this is happening
+    coach will yell out different types of turns (inside cut, outside cut, cryuff
+    turn) that the players will perform and go back to the line they just came from
+    before turning around. \r\nProgressions\r\nN/A\r\nAdaptations\r\nMake grid bigger
+    or smaller depending on numbers.\r\n"

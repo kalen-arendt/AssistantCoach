@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: PlayingWGroup_04
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: de32bfc434645934a8b834ff8db47cfa, type: 3}
+  minAge: 9
+  maxAge: 18
+  type: 0
+  MajorTopics: 08000000
+  MinorTopics: 
+  description: "Detail\r\nSet up 2 grids 15\u2019x20\u2019 with a 5\u2019 channel
+    in between. 1 team of 5 starts in 1 grid. To start, the coach plays the ball in
+    to the attacking team on one side. Once the ball enters the grid, 2 red players
+    from the other side press to win the ball back. To score a point, the blue team
+    must connect 8 passes. If red wins the ball back, they must pass the ball back
+    across the middle channel. Once the ball travels back across the middle channel,
+    the red team is now looking to keep possession, blue sends 2 to defend. Every
+    player should take a turn to defend. If ball goes out of bounds, the coach plays
+    the ball back in.\r\nProgressions\r\nN/A\r\nAdaptations\r\nIf two defenders is
+    too difficult, start with just one player defending.\r\n"

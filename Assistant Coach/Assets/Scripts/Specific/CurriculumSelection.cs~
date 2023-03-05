@@ -1,0 +1,90 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class CurriculumSelection : MonoBehaviour {
+
+
+	//Components
+
+	public Transform 				parent;
+	public GameObject 			summaryTemplate;
+	public Canvas 				infoCanvas;
+	public CurrentOutputController 	outputController;
+
+
+	private List<GameObject> 	summaryObjList			= new List<GameObject>();
+	private List<CurriculumItem> 	currentPracticeStructure	= new List<CurriculumItem> (); 
+
+
+
+	//Field
+
+	private readonly Color BackgroundColor = Color.clear;
+
+
+
+	//Properties
+
+	public string Summary
+	{
+		get 
+		{
+			string str = "";
+			foreach (CurriculumItem c in currentPracticeStructure)
+				str += (c.topic.ToDisplay () + "-");
+			str = str.Remove (str.Length - 1);
+
+			return str;
+		}
+	}
+
+
+
+	//Methods
+
+	public void AddEvent (CurriculumItem item)
+	{
+		if (currentPracticeStructure.Count >= FindObjectOfType<TimeController> ().blocks)
+			return;	
+
+		currentPracticeStructure.Add (item);
+
+
+		GameObject obj = Instantiate (summaryTemplate, parent) as GameObject;
+		summaryObjList.Add (obj);
+
+
+		obj.GetComponent<Image>().color = BackgroundColor;
+
+		Text text = obj.GetComponentInChildren<Text> ();
+		text.color = item.color;
+		text.text = item.objName;
+	}
+
+
+	public void RemoveBlock (GameObject Obj)
+	{
+		int index = summaryObjList.IndexOf (Obj);
+
+		if (index < currentPracticeStructure.Count)
+			currentPracticeStructure.RemoveAt (index);
+
+		if (index < summaryObjList.Count)
+			summaryObjList.RemoveAt (index);
+	}
+
+
+	public void SetBlockLimit (int max)
+	{
+		while (currentPracticeStructure.Count > max)
+			summaryObjList [summaryObjList.Count - 1].GetComponent<DisplayObj> ().RemoveBlock ();
+	}
+
+
+	public void CreateSession ()
+	{
+		outputController.CreateTrainingSession (currentPracticeStructure);
+	}
+}

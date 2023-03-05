@@ -1,0 +1,130 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class TimeController : MonoBehaviour{
+
+
+	//Components
+
+	public List<TimeSelect> timers;
+	public Text time;
+	public Text sessionLength;
+
+
+
+	//Static Fields
+
+	public static List<int> timeList = new List<int> {0,0,0,0};
+	public static int TotalTime;
+
+
+
+	//Property
+
+	public int blocks 
+	{
+		get 
+		{
+			int i = 0;
+			foreach (TimeSelect timer in timers) if (timer.On) i++;
+			return i;
+		}
+	}
+
+
+
+	//Methods
+
+	void Awake ()
+	{
+		for (int i = 0; i < timers.Count; i++)
+			timers [i].index = i;
+	}
+
+
+	IEnumerator Start ()
+	{
+		SendPercentage ();
+
+		yield return new WaitForEndOfFrame ();
+
+		GetSavedTimes ();
+	}
+
+
+
+
+
+	private void ShowTotalTime ()
+	{
+		TotalTime = 0;
+		foreach (TimeSelect timer in timers)
+			TotalTime += timer.myTime;
+
+		time.text = TotalTime.ToString ();
+	}
+
+
+	private void SetSessionLengthText ()
+	{
+		sessionLength.text = blocks.ToString ();
+		FindObjectOfType<CurriculumSelection> ().SetBlockLimit (blocks);
+	}
+
+
+	public void ChangeTime (int _index, int _time)
+	{
+		timeList [_index] = _time;
+		ShowTotalTime ();
+		SendPercentage ();
+		SetSessionLengthText ();
+	}
+
+
+	private void SendPercentage ()
+	{
+		double x = 0;
+		double y = 0;
+
+		for (int i = 0; i < timers.Count; i++ , x = y)
+		{
+			if (timeList [i] != 0)
+				y += (float)timeList [i] / (float)TotalTime;
+			else if (TotalTime == 0)
+				y += 0.25f;
+
+			timers [i].ResizeToPercentage ((float)x, (float)y);
+		}
+	}
+
+
+
+	private void GetSavedTimes ()
+	{
+		List<int> list = new List<int> (PlayerPrefsManager.GetTimePref ());
+
+		for (int i = 0; i < 4; i++)
+		{
+			bool b = list [i] == 0;
+			timers[i].SetCoverActive (b);
+			timers [i].ChangeTime (list [i]);
+		}
+	}
+
+
+	public void SetSavedTimes ()
+	{
+		List<int> list = new List<int> ();
+
+		for (int i = 0; i < timers.Count; i++) {
+			list.Add (timers [i].myTime);
+		}
+
+		PlayerPrefsManager.SaveTimePref (list);
+	}
+
+
+}

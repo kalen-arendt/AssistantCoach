@@ -1,0 +1,21 @@
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SplashSceenTimeOut : MonoBehaviour {
+
+
+	public float time;
+
+
+
+	void Start ()
+	{
+		Invoke ("LoadNextLevel", time); 
+	}
+
+
+	public void LoadNextLevel ()
+	{
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1  ); 
+	}
+}

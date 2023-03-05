@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: PhysicalLiteracy05
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 5947359d844fd6d49aff26f92cc196e5, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 01000000
+  MinorTopics: 
+  description: "Detail\r\nEach player and their partner has one ball in the middle
+    of them. Coach continuously says different body parts that the player needs to
+    touch with their hands. Once the coach says \u2018ball\u2019 the first player
+    to grab the ball wins.\r\nProgressions\r\nN/A\r\nAdaptations\r\nN/A"

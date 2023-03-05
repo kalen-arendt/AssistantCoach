@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: Dribbling_Game_21
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 08b7956e0d79dd746b7661ee395a3207, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 03000000
+  MinorTopics: 
+  description: "Detail\r\nIn a 20x20 yard grid place two mini goals back to back in
+    the middle. Each team starts in line behind the cones (as shown in the picture)
+    and the coach will play a ball out for the first two players in line to battle
+    for the ball and score into a goal.\r\nProgressions\r\nPlace goals in different
+    areas of the field or on different angles.\r\nAdaptations\r\nIf mini goals are
+    not available, place different colour cones back to back. \r\n"

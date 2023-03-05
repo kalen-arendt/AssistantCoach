@@ -1,0 +1,19 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu (menuName = "TrainingBlock/Detail Block", fileName = "DetailedBlock", order = 2)]
+public class DetailBlock : BaseBlockAsset
+{
+
+	[TextArea(25,40)]
+	public string description;
+
+
+	public override BlockStruct blockStruct
+	{
+		get {return new BlockStruct (drillImage, description);}
+	}
+
+}
+

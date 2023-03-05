@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: PlayingWGroup_03
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 35411ccd674340f43be031ac3184935d, type: 3}
+  minAge: 9
+  maxAge: 18
+  type: 0
+  MajorTopics: 08000000
+  MinorTopics: 
+  description: "Detail\r\nSet up a grid, 30\u2019x20\u2019. Ensure each team has 2
+    end players on either side of the goal, with 3 players inside the middle grid.
+    Ball starts with the coach to either team. To score a point, you must find an
+    end player first. Change end players every 2 minutes. Progressions\r\nMake players
+    complete a certain number of passes before they can score a goal.\r\nAdaptations\r\nDepending
+    on numbers, either add a neutral or play 4v4 in the middle.\r\n"

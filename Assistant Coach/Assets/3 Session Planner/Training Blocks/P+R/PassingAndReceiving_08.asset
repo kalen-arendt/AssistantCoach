@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: PassingAndReceiving_08
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 7b5563b1e63dc9e4fa6ce7c1ddee3443, type: 3}
+  minAge: 9
+  maxAge: 18
+  type: 1
+  MajorTopics: 05000000
+  MinorTopics: 
+  description: "Detail\r\nStart by having one player stand by each cone; remaining
+    players form a line behind the cone that is the base of the \u201CY\u201D (players
+    behind this cone need a ball). Players pass the ball in the correct sequence (see
+    picture) and move onto the next cone once they complete their pass/passes. *Note*
+    Drill #1 should be ran before drill #2 is attempted.\r\nProgressions\r\nSee above.\r\nAdaptations\r\nMake
+    two grids if you have 12 or more players.\r\n"

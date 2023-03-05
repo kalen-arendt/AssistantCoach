@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: SkillAquisition_03
+  m_EditorClassIdentifier: Assembly-CSharp::DetailBlock
+  drillImage: {fileID: 21300000, guid: 4b22854a99ee5714489ff8e5fee7a998, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 00000000
+  MinorTopics: 
+  description: "Detail\r\nFor the first 10 minutes, players working in pairs, volleying/controlling/heading
+    on one side of the pole and then shuffling to the other side and performing the
+    same activity (45 seconds then switch partner who is working).  Start with inside
+    volley, then laces volley, then thigh volley, then headers. For the next ten minutes,
+    players working in partners, one player in the box one player tossing on the cone,
+    player is to control the ball inside the box then pass back (45 seconds then switch
+    partner who is working). Start with laces, sole, thigh, then chest. \r\nProgressions\r\nN/A\r\nAdaptations\r\nN/A"

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: Dribbling_Activity_04
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 09b7b6a11d8e99c4f82c443d1dc499ed, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 03000000
+  MinorTopics: 
+  description: "Detail\r\nUsing a centre circle (or just cones), and players will
+    line up around the circle. Players start to dribble around the circle. \r\nProgressions\r\nHave
+    players use different parts of their foot (inside and outside)\r\nHave players
+    change directions\r\nHave players dribble in and out of the cones\r\nAdaptations\r\nFor
+    a large amount of players make the size of the circle bigger\r\n"

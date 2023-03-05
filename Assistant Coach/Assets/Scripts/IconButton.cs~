@@ -1,0 +1,47 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
+
+
+[RequireComponent (typeof (Button))]
+public class IconButton : MonoBehaviour {
+
+	public Color foregroundColor;
+	public Color backgroundColor;
+
+	public SessionDataBase dataBase;
+
+	private Image background;
+	private Text text;
+
+
+
+	void OnEnable ()
+	{
+		text = GetComponentInChildren<Text> ();
+		background = GetComponent<Image> ();
+
+		text.color = foregroundColor;
+		background.color = backgroundColor;
+
+		text.text = dataBase.Abbreviation;
+
+		myList = dataBase.List;
+
+		dataBase.backgroundColor = backgroundColor;
+		dataBase.foregroundColor = foregroundColor;
+	}
+
+
+
+	public void TestButton ()
+	{
+		CreationManager.AddEvent (dataBase);
+	}
+
+
+
+}

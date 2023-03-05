@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: PassingAndReceiving_09
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 912ef33600a4b1e45ad2a9ef1782a93e, type: 3}
+  minAge: 9
+  maxAge: 18
+  type: 1
+  MajorTopics: 05000000
+  MinorTopics: 
+  description: "Detail\r\nSet up poles in a triangle and poles are 12-14 yards apart.
+    Place a cone 3 yards in behind each pole for players to line up on. For the first
+    exercise players will just pass and follow their pass. \r\nProgressions\r\nPass,
+    but run the opposite way of the pass. \r\nDo a give and go around the pole.\r\nAdaptations\r\nN/A"

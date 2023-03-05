@@ -1,0 +1,284 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerPrefsManager : MonoBehaviour {
+
+
+
+	#region Saving Sessions
+	const string SESSION_KEY = "session_";
+	const string PREFERENCE = "preference_";
+	const string COUNT_KEY = "count_";
+	const string MAX = "max_";
+	const string DATE = "date_";
+	const string SUMMARY = "summary_";
+	const string INDEX = "index_";
+	const string TIME = "time_";
+
+	//Methods
+
+	public static void AddSession (SaveObject saveStruct)
+	{
+		//x is the global indexer of sessions
+		int x = 0;
+		for (; x <= PlayerPrefs.GetInt (SESSION_KEY + COUNT_KEY + MAX, -1) + 1; x++)
+			if (PlayerPrefs.GetInt (SESSION_KEY + COUNT_KEY + x, -1) != 1)
+				break;
+	
+
+
+		//update the maximum saved session index
+		if (PlayerPrefs.GetInt (SESSION_KEY + COUNT_KEY + MAX, -1) < x)
+			PlayerPrefs.SetInt (SESSION_KEY + COUNT_KEY + MAX, x);
+		
+
+		//save session data
+
+		//i = the internal indexer of sessions inside each session
+		int i = 0;
+		foreach (SaveObject.IndexTopicPair itp in saveStruct.ITpairArray)
+		{
+			PlayerPrefs.SetString (SESSION_KEY + x + COUNT_KEY + i,				itp.topic.ToString ());
+			PlayerPrefs.SetInt (SESSION_KEY + x + COUNT_KEY + i + itp.topic, 			itp.index);
+			PlayerPrefs.SetInt (SESSION_KEY + x + COUNT_KEY + i + itp.topic + INDEX, 	(int)itp.topic);
+
+			i++;
+		}
+
+
+		SetDate 	(saveStruct.date, x);
+		SetTimes 	(saveStruct.timeList, x);
+
+
+		PlayerPrefs.SetInt	(SESSION_KEY + COUNT_KEY + x, 1);					//Session
+		PlayerPrefs.SetInt	(SESSION_KEY + x + COUNT_KEY + MAX, i);				//Number of drills in session
+		PlayerPrefs.SetInt 	(SESSION_KEY + x + TIME, saveStruct.TotalTime);			//TotalTime of session
+		PlayerPrefs.SetInt 	(SESSION_KEY + x + AGE, saveStruct.age);				//Age of players
+		PlayerPrefs.SetString 	(SESSION_KEY + x + SUMMARY, saveStruct.TopicSummary);		//Summary of session
+
+		//PrintSessionDescriptions ();
+	}
+
+	public static SaveObject GetSavedSession (int index)
+	{
+		int x = index;
+		if (!PlayerPrefs.HasKey (SESSION_KEY + COUNT_KEY + index))
+		{
+			return new SaveObject ();
+		}
+
+		int count = PlayerPrefs.GetInt (SESSION_KEY + index + COUNT_KEY + MAX);
+		List<SaveObject.IndexTopicPair> itps = new List<SaveObject.IndexTopicPair> ();
+
+		for (int i = 0; i < count; i++)
+		{
+			string	topic 	= PlayerPrefs.GetString	(SESSION_KEY + x + COUNT_KEY + i);
+			int 		myIndex 	= PlayerPrefs.GetInt 	(SESSION_KEY + x + COUNT_KEY + i + topic);
+			int 		topicIndex 	= PlayerPrefs.GetInt 	(SESSION_KEY + x + COUNT_KEY + i + topic + INDEX);
+
+			itps.Add (new SaveObject.IndexTopicPair (myIndex, (eTopics)topicIndex));
+		}
+
+		int 		time		= PlayerPrefs.GetInt (SESSION_KEY + x + TIME);
+		int 		age		= PlayerPrefs.GetInt (SESSION_KEY + x + AGE, 9);
+		Date 		date 		= GetDate (x);
+		List<int> 	timesList 	= new List<int> (GetTimes (x));
+
+
+		return new SaveObject (itps.ToArray (), date, age, time , timesList);
+	}
+
+	public static void RemoveSession (int sessionIndex)
+	{
+		int x = sessionIndex;
+		int c = PlayerPrefs.GetInt (SESSION_KEY + x + COUNT_KEY + MAX);
+
+		for (int i = 0; i < c; i++)
+		{
+			string topic = PlayerPrefs.GetString (SESSION_KEY + x + COUNT_KEY + i);
+			PlayerPrefs.DeleteKey (SESSION_KEY + x + COUNT_KEY + i + topic + INDEX);
+			PlayerPrefs.DeleteKey (SESSION_KEY + x + COUNT_KEY + i + topic);
+			PlayerPrefs.DeleteKey (SESSION_KEY + x + COUNT_KEY + i);
+		}
+
+
+		RemoveTimes (x);
+		RemoveDate (x);
+
+		PlayerPrefs.DeleteKey (SESSION_KEY + COUNT_KEY + x);
+		PlayerPrefs.DeleteKey (SESSION_KEY + x + COUNT_KEY + MAX);
+		PlayerPrefs.DeleteKey (SESSION_KEY + x + TIME);
+		PlayerPrefs.DeleteKey (SESSION_KEY + x + AGE);
+		PlayerPrefs.DeleteKey (SESSION_KEY + x + SUMMARY);
+	}
+
+	//
+
+	private static void SetTimes (List<int> timesList, int index)
+	{
+		for (int i = 0; i < timesList.Count; i++)
+			PlayerPrefs.SetInt (SESSION_KEY + index + COUNT_KEY + i + TIME, timesList[i]);
+
+		PlayerPrefs.SetInt (SESSION_KEY + index + TIME + COUNT_KEY, timesList.Count);
+
+	}
+
+	private static List<int> GetTimes (int index)
+	{
+		List<int> list = new List<int> ();
+		int max = PlayerPrefs.GetInt (SESSION_KEY + index + TIME + COUNT_KEY);
+
+		for (int i = 0; i < max; i++)
+			list.Add (PlayerPrefs.GetInt (SESSION_KEY + index + COUNT_KEY + i + TIME));
+
+		return list;
+	}
+
+	private static void RemoveTimes (int index)
+	{
+		int max = PlayerPrefs.GetInt (SESSION_KEY + index + TIME + COUNT_KEY);
+
+		for (int i = 0; i < max; i++)
+			PlayerPrefs.DeleteKey (SESSION_KEY + index + COUNT_KEY + i + TIME);
+
+		PlayerPrefs.DeleteKey (SESSION_KEY + index + TIME + COUNT_KEY);
+	}
+
+	//
+
+	private static void SetDate (Date date, int index)
+	{
+		PlayerPrefs.SetInt (SESSION_KEY + index + DATE + "m", date.Month);
+		PlayerPrefs.SetInt (SESSION_KEY + index + DATE + "d", date.Day);
+		PlayerPrefs.SetInt (SESSION_KEY + index + DATE + "y", date.Year);
+	}
+
+	private static Date GetDate (int index)
+	{
+		if (!PlayerPrefs.HasKey (SESSION_KEY + COUNT_KEY + index))
+			return new Date ();
+
+		int m = PlayerPrefs.GetInt (SESSION_KEY + index + DATE + "m");
+		int d = PlayerPrefs.GetInt (SESSION_KEY + index + DATE + "d");
+		int y = PlayerPrefs.GetInt (SESSION_KEY + index + DATE + "y");
+
+		return new Date (d, m, y);
+		
+	}
+
+	private static void RemoveDate (int index)
+	{
+		int x = index;
+		PlayerPrefs.DeleteKey (SESSION_KEY + x + DATE + "m");
+		PlayerPrefs.DeleteKey (SESSION_KEY + x + DATE + "d");
+		PlayerPrefs.DeleteKey (SESSION_KEY + x + DATE + "y");
+	}
+
+	//
+
+	public static SaveObject.DateIndexSummaryTriplet[] GetSessionDescriptions ()
+	{
+		List<SaveObject.DateIndexSummaryTriplet> list = new List<SaveObject.DateIndexSummaryTriplet> ();
+
+		int c = PlayerPrefs.GetInt (SESSION_KEY + COUNT_KEY + MAX, -1);
+
+		if (c == -1) return new SaveObject.DateIndexSummaryTriplet[0];
+
+		for (int i = 0; i <= c; i++)
+		{
+			if (PlayerPrefs.GetInt (SESSION_KEY + COUNT_KEY + i, -1) == 1)
+			{
+				Date date = GetDate (i);
+				string summary = PlayerPrefs.GetString (SESSION_KEY + i + SUMMARY);
+
+				list.Add (new SaveObject.DateIndexSummaryTriplet (i, date, summary));
+			}
+		}
+
+
+		return list.ToArray ();
+	}
+
+
+
+	#endregion
+
+
+	#region Date
+
+	const string DAY = "day_";
+	const string MONTH = "month_";
+	const string YEAR = "year_";
+	const string AGE = "age_";
+
+
+	//Methods
+
+	public static void SaveDatePref (Vector4 date)
+	{
+		PlayerPrefs.SetInt (PREFERENCE + DAY, (int)date.x);
+		PlayerPrefs.SetInt (PREFERENCE + MONTH, (int)date.y);
+		PlayerPrefs.SetInt (PREFERENCE + YEAR, (int)date.z);
+		PlayerPrefs.SetInt (PREFERENCE + AGE, (int)date.w);
+	}
+
+	public static Vector4 GetDatePref ()
+	{
+		Vector4 date = new Vector4 (-1, -1, -1, -1);
+
+		date.x = PlayerPrefs.GetInt (PREFERENCE + DAY, -1);
+		date.y = PlayerPrefs.GetInt (PREFERENCE + MONTH, -1);
+		date.z = PlayerPrefs.GetInt (PREFERENCE + YEAR, -1);
+		date.w = PlayerPrefs.GetInt (PREFERENCE + AGE, -1);
+
+		return date;
+	}
+
+	#endregion
+
+
+	#region Time
+
+	//Methods
+
+	public static void SaveTimePref (List<int> times)
+	{
+		PlayerPrefs.SetInt (PREFERENCE + TIME, 1);
+		for (int i = 0; i < times.Count; i++)
+			PlayerPrefs.SetInt (PREFERENCE + TIME + i, times[i]);
+	
+	}
+
+	public static List<int> GetTimePref ()
+	{
+		int[] t = new int[] {10,10,20,20};
+		List<int> times = new List<int> (4);
+
+		if (PlayerPrefs.GetInt (PREFERENCE + TIME, 0) != 1)
+		{
+			times.Add (10);
+			times.Add (10);
+			times.Add (20);
+			times.Add (20);
+
+			return times;
+		}
+
+
+		for (int i = 0; i < 4; i++)
+		{
+			int x = (PlayerPrefs.GetInt (PREFERENCE + TIME + i, 0));
+			t[i] = x; 
+		}
+
+		foreach (int j in t)
+			times.Add (j);
+
+		return times;
+	}
+
+	#endregion
+
+
+
+}

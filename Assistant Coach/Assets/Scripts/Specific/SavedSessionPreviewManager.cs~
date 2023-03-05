@@ -1,0 +1,65 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SavedSessionPreviewManager : MonoBehaviour {
+
+	public Canvas overviewCanvas;
+	public Transform parent;
+	public GameObject Template;
+
+
+	private List<SavedSessionPreviewObject> savedSessionArray = new List<SavedSessionPreviewObject> ();
+
+
+	public void OnEnable ()
+	{
+		UpdateSavedSessions ();
+	}
+
+
+
+
+	public void UpdateSavedSessions ()
+	{
+		SaveObject.DateIndexSummaryTriplet[] dataArray = PlayerPrefsManager.GetSessionDescriptions ();
+
+
+
+		while (dataArray.Length < savedSessionArray.Count)
+		{
+			var v = savedSessionArray [savedSessionArray.Count - 1];
+			savedSessionArray.RemoveAt (savedSessionArray.Count - 1);
+			Destroy (v.gameObject);
+		}
+
+
+		int i = 0;
+		for (;i < dataArray.Length; i++)
+		{
+			if (i >= savedSessionArray.Count)
+			{
+				GameObject obj = Instantiate (Template, parent) as GameObject;
+				savedSessionArray.Add(obj.GetComponent<SavedSessionPreviewObject> ());
+			}
+
+			var s = savedSessionArray [i];
+
+			s.sessionData = dataArray [i];
+
+			s.UpdateObject ();
+		}
+	}
+
+
+
+	public void ShowPreviousSession (SaveObject.DateIndexSummaryTriplet data)
+	{
+		
+	}
+
+
+
+
+
+}

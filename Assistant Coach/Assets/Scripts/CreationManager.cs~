@@ -1,0 +1,112 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CreationManager : MonoBehaviour {
+
+	public GameObject summaryObj;
+
+	public static int desiredDrillCount = 4;
+	public static CreationManager instance = null;
+
+	private List<SessionDataBase> currentPracticeStructure = new List<SessionDataBase> (); 
+
+	internal List<GameObject> summaryArray = new List<GameObject>();
+
+	void Awake ()
+	{
+		if (instance == null)
+		{
+			instance = this;
+			Debug.Log (instance); 
+		}
+		else
+		{
+			Debug.Log ("destroying myself"); 
+			DestroyImmediate (this);
+		}
+
+		UpdateSummary ();
+	}
+
+	public static void AddEvent (SessionDataBase dataFile)
+	{
+		Debug.Log (dataFile);
+
+		if (instance.currentPracticeStructure.Count < desiredDrillCount)
+		{
+			instance.currentPracticeStructure.Add (dataFile);
+		}
+
+		Debug.Log (instance.currentPracticeStructure.Count); 
+
+		instance.UpdateSummary ();
+
+	}
+
+
+
+	public void UpdateSummary ()
+	{
+		DestroySummary ();
+
+		summaryArray = null;
+
+		int i = 0;
+		foreach (SessionDataBase block in currentPracticeStructure)
+		{
+			if (i == 0)
+			{
+				summaryObj.GetComponent<Image>().color = block.backgroundColor;
+
+				var t = summaryObj.GetComponentInChildren<Text> ();
+				t.color = block.foregroundColor;
+				t.text = block.Abbreviation;
+
+				summaryObj.GetComponent<DisplayObj> ().index = i;
+			}
+			else
+			{
+				GameObject obj = Instantiate (summaryObj, transform) as GameObject;
+
+				obj.GetComponent<Image>().color = block.backgroundColor;
+
+				var t = obj.GetComponentInChildren<Text> ();
+				t.color = block.foregroundColor;
+				t.text = block.Abbreviation;
+			}
+
+
+
+			i++;
+		}
+
+	}
+
+
+	void DestroySummary ()
+	{
+		foreach (DisplayObj obj in GetComponentsInChildren<DisplayObj>())
+		{
+			if (obj.gameObject == summaryObj)
+			{
+				obj.GetComponentInChildren<Text>().text = "";
+				obj.GetComponent<Image>().color = Color.clear;
+			}
+			else
+			{
+				Debug.Log (obj.gameObject); 
+				Destroy (obj.gameObject);
+			}
+		}
+	}
+
+	public static void RemoveBlock (int index)
+	{
+		instance.currentPracticeStructure.RemoveAt (index);
+	}
+
+
+
+}

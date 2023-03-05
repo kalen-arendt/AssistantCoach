@@ -1,0 +1,154 @@
+﻿using System.Collections.Generic;
+
+public struct SaveObject
+{
+
+	//Fields
+
+	public readonly Date date;
+	public readonly int age;
+	public readonly SaveObject.IndexTopicPair[] ITpairArray;
+
+	public readonly List<int> timeList;
+	public readonly int TotalTime;
+
+
+
+	//Properties
+
+	public string TopicSummary
+	{
+		get 
+		{
+			string str = "";
+
+			for (int i = 0; i < ITpairArray.Length;i++)
+				str += ITpairArray[i].topic + "-";
+
+			str = str.Remove (str.Length - 1);
+
+			return str;
+		}
+	}
+
+	public string uAge
+	{
+		get
+		{
+			return "u" + age;
+		}
+	}
+
+
+
+
+	//Constructor
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="SaveObject"/> struct.
+	/// </summary>
+	/// <param name="itpArray">Itp array.</param>
+	/// <param name="_date">Date. Follows Month Day Year (x,y,z).</param>
+	public SaveObject (SaveObject.IndexTopicPair[] itpArray, Date _date, int Age, int time, List<int> TimeList)
+	{
+		ITpairArray = itpArray;
+		date = _date;
+		age = Age;
+		TotalTime = time;
+		timeList = new List<int> (TimeList);
+
+	}
+
+
+
+	//Method
+
+	public override string ToString ()
+	{
+		return string.Format ("[SaveObject: TopicSummary={0}, TotalTime={1}]", TopicSummary, TotalTime);
+	}
+
+
+
+
+	//-----------------------------------------------------------//
+
+	//SUB-STRUCTURES
+
+
+	//Date, Index of SavedSession, Summary
+
+	/// <summary>
+	/// Holds data for displaying saved sessions on menu.
+	/// </summary>
+	public struct DateIndexSummaryTriplet
+	{
+		//Fields
+
+		public readonly Date date;
+		public readonly int index;
+		public readonly string summary;
+
+
+
+		//Constructor
+
+		/// 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DateIndexSummary"/> struct.
+		/// </summary>
+		/// <param name="_index">Index array.</param>
+		/// <param name="_date">Date.</param>
+		///<param name="_summary">The summary of the session</param>
+		/// 
+		public DateIndexSummaryTriplet (int _index, Date _date, string _summary)
+		{
+			date = _date;
+			index = _index;
+			summary = _summary;
+		}
+
+
+
+		//Method
+
+		public override string ToString ()
+		{
+			return string.Format ("Session {0} [{1}], created {2}", index, summary, date);
+		}
+	}
+
+
+
+	//Index of Master Database, Topic of Session
+
+	/// <summary>
+	/// Index topic pair.
+	/// </summary>
+	public struct IndexTopicPair
+	{
+		//Fields
+
+		public readonly int index;
+		public readonly eTopics topic;
+
+
+
+		//Constructor
+
+		public IndexTopicPair (int _index, eTopics _topic)
+		{
+			index = _index;
+			topic = _topic;
+		}
+
+
+
+		//Method
+
+		public override string ToString ()
+		{
+			return string.Format ("{0} @ index {1}", topic, index);
+		}
+	}
+}

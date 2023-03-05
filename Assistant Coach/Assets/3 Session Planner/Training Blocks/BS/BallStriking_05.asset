@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: BallStriking_05
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: c98b9716b2fb718439bfd00a1e7344fb, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 02000000
+  MinorTopics: 
+  description: "Detail\r\nActivity #1: Ball gets played from one line to another (see
+    picture), as that pass happens, player on the base line in front of the cone that
+    has been passed to sprints in between the flags, turns with the ball in one touch
+    and shoots with their second touch. Player that made the first pass will stay
+    in the same line to receive the next ball from the opposite line, player that
+    made the pass into the shooting player will go behind the base line and player
+    who took the shot will grab their ball in go to the back of the passing line.
+    Activity #2: Starts the same as activity #1 but the opposite side player will
+    run in between the poles to turn in one touch and shoot in their second touch
+    (diagonal pass instead of straight pass). Rotation of players will be the same.
+    \r\nProgressions\r\n(See above)\r\nAdaptations\r\nN/A\r\n"

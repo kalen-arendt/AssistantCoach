@@ -1,0 +1,103 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CurriculumSelectionManager : MonoBehaviour {
+
+	public Transform parent;
+	public GameObject summaryTemplate;
+	public Color BackgroundColor;
+	public CurrentOutputController displayManager;
+	public Canvas infoCanvas;
+
+
+
+
+	public string Summary
+	{
+		get 
+		{
+			string str = "";
+			foreach (CurriculumItem c in currentPracticeStructure)
+				str += (c.topic.ToDisplay () + "-");
+			str = str.Remove (str.Length - 1);
+
+			return str;
+		}
+	}
+
+
+	private List<CurriculumItem> currentPracticeStructure = new List<CurriculumItem> (); 
+
+	internal List<GameObject> summaryObjList = new List<GameObject>();
+
+
+	void Awake ()
+	{
+		SetInfoWindow (false);
+	}
+
+
+	public void SetInfoWindow (bool value)
+	{
+		infoCanvas.gameObject.SetActive (value);
+	}
+
+
+	public void AddEvent (CurriculumItem item)
+	{
+		if (currentPracticeStructure.Count >= FindObjectOfType<TimeController> ().blocks)
+			return;	
+
+		currentPracticeStructure.Add (item);
+
+		//========================================//
+		GameObject obj = Instantiate (summaryTemplate, parent) as GameObject;
+
+		obj.GetComponent<Image>().color = BackgroundColor;
+
+		Text t = obj.GetComponentInChildren<Text> ();
+		t.color = item.color;
+		t.text = item.objName;
+		//========================================//
+
+		summaryObjList.Add (obj);
+
+		Debug.Log ((int)item.topic); 
+
+		Debug.Log (Summary); 
+
+	}
+
+
+	public void RemoveBlock (GameObject Obj)
+	{
+		int index = summaryObjList.IndexOf (Obj);
+
+		if (index < currentPracticeStructure.Count)
+			currentPracticeStructure.RemoveAt (index);
+
+		if (index < summaryObjList.Count)
+			summaryObjList.RemoveAt (index);
+	}
+
+
+
+	public void SetBlockLimit (int max)
+	{
+		while (currentPracticeStructure.Count > max)
+			summaryObjList [summaryObjList.Count - 1].GetComponent<DisplayObj> ().RemoveBlock ();
+	}
+
+
+	public void CreateSession ()
+	{
+		displayManager.CreateTrainingSession (currentPracticeStructure);
+
+	}
+
+
+
+
+}

@@ -1,0 +1,125 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class CurrentDrillDisplay : BaseDrillDisplay {
+
+
+
+	//Private Fields
+
+	private int currentIndex = -1;
+	private int drillDisplayIndex = 0;
+	private int Time = 0;
+
+	private List<int> 		recents 		= new List<int> ();
+	private List<BaseBlockAsset> 	possibleDrills	= null;
+
+
+
+
+	//Properties
+
+	public int GetIndexOfCurrent
+	{
+		get
+		{
+			if (possibleDrills[currentIndex] == null) return -1;
+			for (int i = 0; i < ApplicationController.MasterDataBaseList.List.Count; i++)
+				if (ApplicationController.MasterDataBaseList.List [i] == possibleDrills [currentIndex])
+					return i;
+			return -1;
+		}
+	}
+
+
+	public SaveObject.IndexTopicPair GetIndexTopicPair
+	{
+		get { return new SaveObject.IndexTopicPair (GetIndexOfCurrent, curriculum.topic); }
+	}
+
+
+
+
+
+	//Public Methods
+
+	public void SetDetails (int Index, int time, CurriculumItem cItem)
+	{
+		drillDisplayIndex = Index;
+		Time = time;
+		SetCurriculum (cItem);
+	}
+
+
+	public void SetPossibleDrills (List<BaseBlockAsset> drills)
+	{
+		possibleDrills = drills;
+	}
+
+
+
+	public void ShowRecentDrill ()
+	{
+		if (currentIndex != -1)
+			ShowDrill (currentIndex);
+		else
+			ShowRandomDrill ();
+	}
+
+
+	public void ShowRandomDrill ()
+	{
+		int x = Random.Range (0, possibleDrills.Count);
+
+		while (x == currentIndex && !IsNewDrill (x))
+			x = Random.Range (0, possibleDrills.Count);
+
+		ShowDrill (x);
+	}
+
+
+
+
+	//Private Methods
+
+	private bool ItarateThroughDrills (int index)
+	{
+		//if the index is the same as the previous ones break;
+		for (int i = 0; i < recents.Count; i++)
+			if (index == recents [i])
+				return false;
+			else
+				continue;
+
+		recents.Add (index);
+		return true;
+	}
+
+
+	private bool IsNewDrill (int x)
+	{
+		if (ItarateThroughDrills (x))
+			return true;
+
+		if (recents.Count == possibleDrills.Count)
+			recents.Clear ();
+
+		return ItarateThroughDrills (x);
+	}
+
+
+	private void ShowDrill (int index)
+	{
+		if (index >= possibleDrills.Count) return;
+
+		currentIndex = index;
+		BlockStruct _block = possibleDrills [index].blockStruct;
+
+		ShowDrillBaseRootIndex (_block, drillDisplayIndex, Time, curriculum.topic);
+	}
+
+
+}

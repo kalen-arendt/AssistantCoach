@@ -1,0 +1,284 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ApplicationController : MonoBehaviour {
+
+
+	//Components
+
+	public Dropdown day, month, year, age;
+	public Canvas currentCanvas;
+
+
+
+	//Fields
+
+	public SessionDataBase masterDataBase;
+	public Font descriptionFont;
+
+
+
+	//Statics
+
+	public static SessionDataBase MasterDataBaseList = null;
+	public static ApplicationController instance = null;
+
+
+
+	//Constants
+	[Header ("Private Fields")]
+
+	private const int BOARDER = 8;
+	[SerializeField] private float duration = 0.5f;
+	//[SerializeField] private float smoothness = 0.01f;
+
+
+
+	//Properties
+
+	public Date Date { get { return new Date (Day, Month, Year); } }
+
+	public int Day { get { return day.value + 1; } }
+	public int Month{ get { return month.value + 1; } }
+	public int Year{ get { return (year.value + 2017); } }
+
+	public string UAge { get { return "u" + (age.value + 9); } }
+	public int Age { get { return age.value + 9;}}
+
+
+
+	//Methods
+
+	void OnEnable ()
+	{
+		if (instance == null)	instance = this;
+		else 				Destroy (this);
+
+		MasterDataBaseList = masterDataBase;
+	}
+
+
+	void Start ()
+	{
+		FillDropDownMenus ();
+	}
+
+
+
+
+	public void DeleteAllSavedSessions ()
+	{
+		foreach (SaveObject.DateIndexSummaryTriplet triple in PlayerPrefsManager.GetSessionDescriptions ())
+			PlayerPrefsManager.RemoveSession (triple.index);
+
+		var savedSessionManager = FindObjectOfType<SavedSessionPreviewManager> ();
+
+		if (savedSessionManager != null)
+			savedSessionManager.UpdateSavedSessions ();
+	}
+
+
+
+
+	#region Dropdown Menus || Date Set & Get
+
+	void FillDropDownMenus ()
+	{
+		List<string> dayListOptions = new List<string> (31);
+		List<string> monthListOptions = new List<string> (12);
+		List<string> yearListOptions = new List<string> (10);
+		List<string> ageListOptions = new List<string> (4);
+
+		for (int i = 0; i < dayListOptions.Capacity; i++)
+		{
+			if (i < monthListOptions.Capacity) 	monthListOptions.Add ((i + 1).ToString ());
+			if (i < yearListOptions.Capacity)	yearListOptions.Add ((i + 2017).ToString ());
+			if (i < ageListOptions.Capacity)	ageListOptions.Add ("u" + (i + 9));
+			dayListOptions.Add ((i + 1).ToString ());
+		}
+
+		day.ClearOptions ();
+		day.AddOptions (dayListOptions);
+
+		month.ClearOptions ();
+		month.AddOptions (monthListOptions);
+
+		year.ClearOptions ();
+		year.AddOptions (yearListOptions);
+
+		GetPrefDate ();
+	}
+
+
+
+	void GetPrefDate ()
+	{
+		Vector4 date = PlayerPrefsManager.GetDatePref ();
+
+		if (date.x >= 0 && date.x < day.options.Count)
+			day.value = (int)date.x;
+		if (date.y >= 0 && date.y < month.options.Count)
+			month.value = (int)date.y;
+		if (date.y >= 0 && date.z < year.options.Count)
+			year.value = (int)date.z;
+		if (date.w >= 0 && date.z < age.options.Count)
+			age.value = (int)date.w;
+		
+	}
+
+
+	public void SetPrefDate ()
+	{
+		Vector4 date = new Vector4 (-1, -1, -1, -1);
+		date.x = day.value;
+		date.y = month.value;
+		date.z = year.value;
+		date.w = age.value;
+
+		PlayerPrefsManager.SaveDatePref (date);
+
+		GetPrefDate ();
+	}
+
+
+
+	#endregion
+
+
+
+	#region Next || Previous
+
+	public void CallNewNext (Canvas canvas)
+	{
+		canvas = Canvas.Instantiate (canvas, transform) as Canvas;
+		CallNext (canvas);
+	}
+		
+	public void CallNewPrevious (Canvas canvas)
+	{
+		canvas = Canvas.Instantiate (canvas, transform) as Canvas;
+		CallPrevious (canvas);
+	}
+
+
+
+	public void CallNext (Canvas canvas)
+	{
+		StartCoroutine (Next (canvas));
+	}
+
+	private IEnumerator Next (Canvas nextCanvas)
+	{
+		RectTransform current = currentCanvas.GetComponent<RectTransform>();
+		RectTransform next = nextCanvas.GetComponent<RectTransform>();
+
+		int width = (int)current.rect.width;
+
+
+		current.anchorMin = new Vector2 (-1, 0);
+		current.anchorMax = new Vector2 (0, 0.8f);
+
+		current.offsetMax = new Vector2 (width, -BOARDER);
+		current.offsetMin = new Vector2 (width, BOARDER);
+
+
+		next.anchorMin = new Vector2 (0, 0);
+		next.anchorMax = new Vector2 (1, 0.8f);
+
+		next.offsetMax = new Vector2 (width, BOARDER);
+		next.offsetMin = new Vector2 (width, BOARDER);
+
+
+		float percent = 0;
+		bool inNextLoop = true;
+		bool b = false;
+		while (inNextLoop)
+		{
+			if (!b)
+				b = true;
+			else
+				yield return new WaitForEndOfFrame ();
+			
+			float distance = Mathf.Lerp (width, 0, percent);
+			percent += Time.deltaTime / duration; 
+
+			if (percent > 1)
+			{
+				percent = 1;
+				distance = 0;
+			}
+
+			current.offsetMax = new Vector2 (distance - BOARDER, -BOARDER);
+			current.offsetMin = new Vector2 (distance + BOARDER, BOARDER);
+
+			next.offsetMax = new Vector2 (distance - BOARDER, -BOARDER);
+			next.offsetMin = new Vector2 (distance + BOARDER, BOARDER);
+
+			if (percent == 1) inNextLoop = false;
+
+		}
+
+		currentCanvas = nextCanvas;
+		yield return null;
+	}
+
+
+	public void CallPrevious (Canvas canvas)
+	{
+		StartCoroutine (Previous (canvas));
+	}
+
+	private IEnumerator Previous (Canvas previousCanvas)
+	{
+		RectTransform current = currentCanvas.GetComponent<RectTransform>();
+		RectTransform prev = previousCanvas.GetComponent<RectTransform>();
+
+		int width = (int)current.rect.width;
+
+		current.anchorMin = new Vector2 (1, 0);
+		current.anchorMax = new Vector2 (2, 0.8f);
+
+		current.offsetMax = new Vector2 (width, BOARDER);
+		current.offsetMin = new Vector2 (width, BOARDER);
+
+
+		prev.anchorMin = new Vector2 (0, 0);
+		prev.anchorMax = new Vector2 (1, 0.8f);
+
+		prev.offsetMax = new Vector2 (-width, BOARDER);
+		prev.offsetMin = new Vector2 (-width, BOARDER);
+
+		float percent = 0;
+		bool inPreviousLoop = true;
+		bool b = false;
+		while (inPreviousLoop)
+		{
+			if (!b)
+				b = true;
+			else
+				yield return new WaitForEndOfFrame ();
+			
+			float distance = Mathf.Lerp (-width, 0, percent);
+			percent += Time.deltaTime / duration; 
+
+			if (percent > 1) {percent = 1; distance = 0;}
+
+			current.offsetMax = new Vector2 (distance - BOARDER, -BOARDER);
+			current.offsetMin = new Vector2 (distance + BOARDER, BOARDER);
+
+			prev.offsetMax = new Vector2 (distance - BOARDER, -BOARDER);
+			prev.offsetMin = new Vector2 (distance + BOARDER, BOARDER);
+
+			if (percent == 1) inPreviousLoop = false;
+		}
+
+		currentCanvas = previousCanvas;
+		yield return null;
+	}
+
+	#endregion
+
+
+}

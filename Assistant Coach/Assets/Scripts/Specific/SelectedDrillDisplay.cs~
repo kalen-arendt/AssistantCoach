@@ -1,0 +1,259 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class SelectedDrillDisplay : BaseDrillDisplay {
+
+
+	//This is for the object that shows a drill
+
+
+	public Image diagram;
+	public GameObject description;
+	public BlockStruct.Description_Type type;
+
+	[Space]
+
+	public int fontSize;
+
+	[Header("Details")]
+
+	public Text block;
+	public Text topic;
+	public Text time;
+
+
+
+
+	//
+
+	internal List<BaseBlockAsset> possibleDrills = null;
+	internal CurriculumItem curriculum = new CurriculumItem();
+
+	internal int Time = 0;
+	internal int drillDisplayIndex = 0;
+
+
+	internal Text text = null;
+	internal Image image = null;
+
+	internal int currentIndex = -1;
+
+	public int GetIndexOfCurrent
+	{
+		get
+		{
+			Debug.Log (currentIndex + ", " + possibleDrills.Count); 
+			if (possibleDrills[currentIndex] == null)
+			{
+				return -1;
+			}
+
+			//print ("the index of " + name + " is: " + currentIndex); 
+			for (int i = 0; i < ApplicationController.MasterDataBaseList.List.Count; i++)
+			{
+				if (ApplicationController.MasterDataBaseList.List [i] == possibleDrills [currentIndex])
+				{
+					return i;
+				}
+			}
+
+			return -1;
+		}
+	}
+
+	/*else
+		print (ApplicationController.MasterDataBaseList.List [i] + " " + i); */
+
+	//
+
+	private ContentSizeFitter contentSizeFitter;
+
+
+	//
+	//Property
+	//
+
+
+	public SaveObject.IndexTopicPair GetIndexTopicPair
+	{
+		get 
+		{
+			return new SaveObject.IndexTopicPair (GetIndexOfCurrent, curriculum.topic);
+		}
+	}
+
+
+	//
+	//Methods
+	//
+
+	void OnEnable ()
+	{
+		if (type == BlockStruct.Description_Type.graphic)
+		{
+			image = description.GetComponent<Image>();
+		}
+		else
+		{
+			text = description.GetComponent<Text> ();
+			contentSizeFitter = GetComponent<ContentSizeFitter> ();
+		}
+	}
+
+
+
+	public void SetPossibleDrills (List<BaseBlockAsset> drills)
+	{
+		possibleDrills = drills;
+	}
+
+
+	public void ShowRecentDrill ()
+	{
+		if (currentIndex != -1)
+			ShowDrill (currentIndex);
+		else
+			ShowRandomDrill ();
+	}
+
+
+
+
+
+
+
+
+
+
+
+	private List<int> recents = new List<int> ();
+	private bool ItarateThroughDrills (int index)
+	{
+		for (int i = 0; i < recents.Count; i++)
+		{
+			//if the index is the same as the previous ones break;
+			if (index == recents [i])
+				return false;
+			else
+				continue;
+
+		}
+
+		recents.Add (index);
+		return true;
+	}
+
+
+	private bool IsNewDrill (int x)
+	{
+		if (ItarateThroughDrills (x))
+			return true;
+
+		if (recents.Count == possibleDrills.Count)
+			recents.Clear ();
+
+		return ItarateThroughDrills (x);
+	}
+
+
+	public void ShowRandomDrill ()
+	{
+		int x = Random.Range (0, possibleDrills.Count);
+
+		while (x == currentIndex && !IsNewDrill (x))
+		{
+			x = Random.Range (0, possibleDrills.Count);
+		}
+		
+		ShowDrill (x);
+	}
+
+
+	private void ShowDrill (int index)
+	{
+		if (index >= possibleDrills.Count)
+			return;
+
+		currentIndex = index;
+		BlockStruct _block = possibleDrills [index].blockStruct;
+
+		ToggleType (_block.descriptionType);
+
+		diagram.sprite = _block.mySprite;
+
+		time.text = TimeController.timeList [drillDisplayIndex] + "min";
+		block.text = "Block " + (drillDisplayIndex + 1);
+		topic.text = curriculum.topic.ToString ();
+
+		Canvas.ForceUpdateCanvases ();
+		float x = GetComponent<RectTransform> ().rect.size.x;
+
+		ResizeImageToMaxSize (diagram, x);
+
+
+		if (_block.descriptionType == BlockStruct.Description_Type.graphic)
+		{
+			image.sprite = _block.descriptionGraphic; 
+			ResizeImageToMaxSize (image, x);
+		}
+		else
+		{
+			text.text = _block.descriptionText.Trim () + "\n";
+			text.fontSize = fontSize;
+			contentSizeFitter.SetLayoutVertical ();
+		}
+
+
+
+	}
+
+
+	void ResizeImageToMaxSize (Image image, float width)
+	{
+		if (image.sprite == null || image.sprite.texture == null) return;
+		//return if can't access the sprite or sprite texture.
+
+		image.preserveAspect = true;
+
+		RectTransform rt = image.GetComponent<RectTransform> ();
+		double ratio = (double)image.sprite.texture.height / (double)image.sprite.texture.width;
+		double newHeight =  width * ratio;
+
+		rt.sizeDelta = new Vector2 (width, (float)newHeight);
+	}
+
+
+
+
+	public void ToggleType (BlockStruct.Description_Type _type)
+	{
+		if (_type == type)
+			return;
+		
+		if (_type == BlockStruct.Description_Type.graphic)
+		{
+			Destroy (description.GetComponent<Text>());
+			Destroy (description.GetComponent<ContentSizeFitter>());
+			image = description.AddComponent<Image>();
+		}
+		else 
+		{
+			DestroyImmediate (description.GetComponent<Image>());
+			text = description.AddComponent<Text>();
+			text.color = Color.black;
+			text.font = FindObjectOfType<ApplicationController> ().descriptionFont;
+			text.fontSize = fontSize;
+
+			ContentSizeFitter cst = text.gameObject.AddComponent<ContentSizeFitter> ();
+			cst.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+			cst.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+		}
+
+		type = _type;
+	}
+
+
+}

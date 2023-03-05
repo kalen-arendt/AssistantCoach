@@ -1,0 +1,29 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+//Preview of a saved session
+
+public class SavedSessionPreviewObject : MonoBehaviour {
+
+
+	public Text summary, date;
+
+
+
+	//holds data of a preaviously created session.
+
+	internal SaveObject.DateIndexSummaryTriplet sessionData;
+
+
+
+	public void UpdateObject ()
+	{
+		summary.text = sessionData.summary;
+		date.text = sessionData.date.ShortDate ();
+	}
+
+
+
+}

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: PassingAndReceiving_05
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: e98a984c89fdbc3448f4c80dad519102, type: 3}
+  minAge: 9
+  maxAge: 18
+  type: 1
+  MajorTopics: 05000000
+  MinorTopics: 
+  description: "Detail\r\nSet out cones in same shape as photo, 5\u2019 apart. Set
+    up multiple grids depending on the number of players (5 sets for 10 players).
+    Have 1 player behind the gate, and 1 player behind the single cone. Player at
+    the single cone passes the ball through the gate for the player on the other side
+    to take a touch around the cone and pass back to the player at the single cone.\r\nProgressions\r\nInside
+    touch, pass back with the same foot.\r\nInside touch across body, pass back with
+    opposite foot.\r\nOutside touch, pass back with same foot.\r\nAdaptations\r\nPlace
+    cones further apart depending on skill.\r\n"

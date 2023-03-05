@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: Dribbling_Game_14
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: a9f8ea74d0303e441920410380cd9c86, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 03000000
+  MinorTopics: 
+  description: "Detail\r\nIn a 25x25 yard grid, set up 3 mini goals at random. Coach
+    will play a ball into the grid and the first two players in line will battle for
+    the ball. Player in possession tries to score, player without the ball tries to
+    win the ball and score.\r\nProgressions\r\nSwitch up how the goals are placed\r\nPlay
+    2v2 or 3v3\r\nAdd GK\u2019s in the nets\r\nAdaptations\r\nN/A"

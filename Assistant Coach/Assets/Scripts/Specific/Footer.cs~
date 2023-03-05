@@ -1,0 +1,57 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+[RequireComponent (typeof (Animator), typeof (Canvas), typeof (GraphicRaycaster))]
+public class Footer : MonoBehaviour {
+
+
+
+	//Components
+
+	public GameObject MaskObject;
+
+	private Animator myAnim;
+
+
+
+	//Fields
+
+	private bool isVisible = false;
+	private GameObject mask;
+
+
+
+	//Methods
+
+	void OnEnable ()
+	{
+		myAnim = GetComponent<Animator> ();
+		GetComponent<Canvas> ().sortingOrder = 100;
+	}
+
+
+
+
+
+	public void ToggleFooter ()
+	{
+		if (isVisible)
+		{
+			isVisible = false;
+			myAnim.SetTrigger ("Hide");
+
+			Destroy (mask);
+		}
+		else
+		{
+			isVisible = true;
+			myAnim.SetTrigger ("Show");
+
+			mask = Instantiate (MaskObject) as GameObject;
+			mask.GetComponent<MaskObj> ().footer = this;
+			mask.SetActive (true);
+		}
+	}
+}

@@ -1,0 +1,26 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Reflection;
+
+
+public class BaseBlock : ScriptableObject {
+
+
+
+
+	// Use this for initialization
+	void Start ()
+	{
+		if (CreateAssetMenuAttribute.IsDefined ( typeof (MemberInfo), typeof (CreateAssetMenuAttribute)))
+		{
+			Debug.Log ("heyyy there");  
+		}
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}

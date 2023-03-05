@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: 1v1Defending_04
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 3be5af4aa3ea65b46b6c2820c991c4ae, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 1
+  MajorTopics: 0b000000
+  MinorTopics: 
+  description: "Detail\r\nOn a 12x32y field play 1v1 transition game where if the
+    ball goes out in your defending half of the field a new player will come in with
+    a ball and try to score on either of the two goals. If the ball goes out in the
+    attacking half that player stays on to defend."

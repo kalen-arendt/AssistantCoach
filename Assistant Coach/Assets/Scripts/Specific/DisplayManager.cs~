@@ -1,0 +1,107 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
+using System.Linq;
+
+public class DisplayManager : BaseDisplayManager {
+
+
+
+
+	private List<SelectedDrillDisplay> drillPrefabList = new List<SelectedDrillDisplay> ();
+
+	public static bool SessionChanged; //TODO make it so that any action changing the session make up sets this to true;
+
+
+
+
+	private List<CurriculumItem> items = new List<CurriculumItem> ();
+	public void CreateTrainingSession (List<CurriculumItem> topics)
+	{
+		if (topics.Count == 0 || topics.Count != FindObjectOfType<TimeController> ().blocks) return;
+		if (topics == items)
+		{
+			appController.CallNext (GetComponent<Canvas>());
+			return;
+		}
+
+		appController.SetPrefDate ();
+
+		items = new List<CurriculumItem> (topics);
+
+		ShowSessionData (appController.Date, FindObjectOfType<CreationManager> ().Summary, appController.UAge, TimeController.TotalTime);
+
+		/*age.text = appController.UAge;
+		summary.text = FindObjectOfType<CreationManager> ().Summary;
+		date.text = appController.Date.ToString ();
+		time.text = TimeController.TotalTime + "min";*/
+
+
+		int i = 0;
+
+		while (topics.Count < drillPrefabList.Count)
+		{
+			var v = drillPrefabList [drillPrefabList.Count - 1];
+			drillPrefabList.RemoveAt (drillPrefabList.Count - 1);
+			Destroy (v.gameObject);
+		}
+
+		for (;i < topics.Count; i++)
+		{
+			if (i >= drillPrefabList.Count)
+			{
+				GameObject obj = Instantiate (template, parent) as GameObject;
+				drillPrefabList.Add(obj.GetComponent<SelectedDrillDisplay> ());
+			}
+
+			var d = drillPrefabList [i];
+
+			d.SetPossibleDrills (
+				appController.masterDataBase.GetPossibleDrillsList (topics [i].topic, SessionDataBase.drill_type.any, appController.Age));
+
+			d.drillDisplayIndex = i;
+			d.Time = TimeController.timeList [i];
+			d.curriculum = topics [i];
+
+			d.ShowRecentDrill ();
+		}
+
+
+
+		appController.CallNext (GetComponent<Canvas>());
+	}
+
+
+
+
+	public void RefreshAll ()
+	{
+		foreach (SelectedDrillDisplay display in FindObjectsOfType<SelectedDrillDisplay>())
+			display.ShowRandomDrill ();
+	}
+
+
+
+	public void SaveCurrentSession ()
+	{
+		List<SaveObject.IndexTopicPair> itpList = new List<SaveObject.IndexTopicPair> ();
+
+		foreach (SelectedDrillDisplay item in FindObjectsOfType<SelectedDrillDisplay>()) {
+			print (item.GetIndexTopicPair.ToString ());
+			itpList.Add (item.GetIndexTopicPair);
+		}
+
+		itpList.Reverse ();
+
+		SaveObject saveObj = new SaveObject (itpList.ToArray (), appController.Date, appController.Age, TimeController.TotalTime, TimeController.timeList);
+
+		PlayerPrefsManager.AddSession (saveObj);
+		var savedSessionManager = FindObjectOfType<SavedSessionManager> ();
+
+		if (savedSessionManager != null)
+			savedSessionManager.UpdateSavedSessions ();
+	}
+
+}

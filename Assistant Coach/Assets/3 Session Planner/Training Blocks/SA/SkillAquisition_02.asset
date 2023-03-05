@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: SkillAquisition_02
+  m_EditorClassIdentifier: Assembly-CSharp::DetailBlock
+  drillImage: {fileID: 21300000, guid: 1cd2c18e411a01d46801670647c7e267, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 00000000
+  MinorTopics: 
+  description: "Detail\r\nFor the first 10 minutes players will work in their own
+    space working on different Coerver skills (toe touches, foundation touches, combination,
+    left foot triangles, right foot triangles and pull-stop \u2013 both directions).
+    For the next ten minutes, players will line up behind cones as shown in picture
+    and will dribble/perform different activities to the cone then turn right (switch
+    to left half way through) and dribble to the next line, the next player in line
+    can start when player gets to the end of the next line (4 players going at a time).
+    Start with dribbling with right foot, then dribbling with left foot, then toe
+    touches to the middle cone, foundation touches to the middle cone, pull stops
+    to the middle cone.\r\nProgressions\r\nHave players dribble to the middle cone,
+    do a Coerver activity and then dribble back. When they get back their partner
+    goes (make this into a relay race).\r\nAdaptations\r\nN/A\r\n"

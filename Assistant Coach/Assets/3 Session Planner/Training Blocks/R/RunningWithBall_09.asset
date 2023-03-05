@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: RunningWithBall_09
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 8cd83cac9007e8543895e7b45044c21f, type: 3}
+  minAge: 9
+  maxAge: 14
+  type: 1
+  MajorTopics: 04000000
+  MinorTopics: 
+  description: "Detail\r\n1v1 in a 15x20 yard area. Each player is attacking two goals
+    and defending 2 goals (yellow cones). If a goal is scored defending player goes
+    off and a new attacking player comes in (player that scored a goal becomes defender).
+    If ball goes out in your half you are out, and go back into your line. \r\nProgressions\r\nPlay
+    2v2 with same rules.\r\nAdaptations\r\nIf there are 12 or more players, make 2
+    grids.\r\n"

@@ -1,0 +1,27 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TEST_Object : MonoBehaviour {
+
+	public SessionDataBase dataBase;
+
+
+
+	// Use this for initialization
+	void Start ()
+	{
+		for (int i = 0; i < 5; i ++)
+		{
+			dataBase.List.Add (null);
+		}
+
+
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: BallStriking_02
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 0e2d40f799bc5fd4b8cf9b94c907ba47, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 02000000
+  MinorTopics: 
+  description: "Detail\r\nPlayers pick a partner and play in a 6x6 yard box. They
+    strike the ball in the air and try to get the ball to land in the opposite 6x6
+    (which is 20 yards away). If it enters the grid without a bounce, one of the players
+    in that grid controls the ball for their teammate (in one touch \u2013 before
+    the ball touches the ground) and that player knocks it back trying to get it into
+    the 6x6. Game continues until the ball goes out, the team that doesn\u2019t get
+    the ball into the opposite 6x6, gets a point (you don\u2019t want points). Play
+    games of 4-5 minutes. Winning team moves right, losing team moves left (the right
+    most field is where teams should try to get).\r\n\nPlace end zones further apart
+    if 20 yards is becoming too easy.\r\n"

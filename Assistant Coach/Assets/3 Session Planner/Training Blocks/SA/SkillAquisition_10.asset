@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: SkillAquisition_10
+  m_EditorClassIdentifier: Assembly-CSharp::DetailBlock
+  drillImage: {fileID: 21300000, guid: b2e32271dbcda0645b64deee6cc4af05, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 00000000
+  MinorTopics: 
+  description: "Detail\r\nField size = 10-12x10-12yds. 4-6players to a grid. Defender
+    starts in the middle of the grid and tosses a ball for the attacking player to
+    control, then must touch a cone before they can defend. If defender serves it
+    out of bounds they redo it. Play to small goals.  Game restarts when the ball
+    goes out of bounds.  Both players take a turn being the defender before you switch
+    the pair in the middle.  \r\nCoaching pts: \r\n1. Watch the ball right into their
+    foot\r\n2. Present the controlling surface then withdraw it to cushion the ball
+    down.\r\n3. While ball is in the air attacker should find the location of the
+    defender.\r\n4. 1st touch away from pressure.\r\n5. Face defender as quickly as
+    possible.\r\nProgressions:\r\nThe better they get the higher the toss should go.
+    \ \r\nAdaptations\r\nDefender must touch 1 of 2 cones on the attackers half.\r"

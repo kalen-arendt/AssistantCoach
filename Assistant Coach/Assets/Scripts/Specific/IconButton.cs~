@@ -1,0 +1,30 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+//using UnityEngine.Events;
+using UnityEngine.EventSystems;
+
+[RequireComponent (typeof (RectTransform), typeof (Image))]
+public class IconButton : UIBehaviour, IPointerClickHandler
+{
+
+	//Fields
+
+	public Color color;
+	public eTopics topic;
+
+
+	//Properties
+
+	public CurriculumItem curriculumItem { get { return new CurriculumItem (topic, color, name); }}
+
+
+
+	//Interfaces
+
+	public void OnPointerClick (PointerEventData data)
+	{
+		this.AddEvent ();
+	}
+}
+
+

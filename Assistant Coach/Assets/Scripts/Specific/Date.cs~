@@ -1,0 +1,78 @@
+﻿public struct Date
+{
+
+	//Fields
+
+	public readonly int Day, Month, Year;
+
+
+
+	//Properties
+
+	private string sDay
+	{
+		get
+		{
+			if (Day < 10) return "0" + Day;
+			else return Day.ToString ();
+		}
+	}
+
+	private string sMonth
+	{
+		get
+		{
+			if (Month < 10) return "0" + Month;
+			else return Month.ToString ();
+		}
+	}
+
+
+
+	//Constructor
+
+	public Date (int day, int month, int year)
+	{
+		Day = 01;
+		Month = 01;
+		Year = 2017;
+
+		if (day <= 31 && day > 0)
+			if (day < 10) Day = 00 + day;
+			else Day = day;
+
+		if (month <= 12 && month > 0)
+			if (month < 10) Month = 00 + month;
+			else Month = month;
+
+		if (year >= 2017)
+			Year = year;
+	}
+
+
+
+	//Methods
+
+	public string LongDate ()
+	{
+		return string.Format (Month + "/" + Day + "/" + Year);
+	}
+
+	public string ShortDate ()
+	{
+		return string.Format (Month + "/" + Day);
+	}
+
+	public string LongDateS ()
+	{
+		int y = Year - 2000;
+		return string.Format (Month + "/" + Day + "/" + y);
+	}
+
+
+	public override string ToString ()
+	{
+		if (Month == 0 || Day == 0) return "[null : Date]";
+		return string.Format (Month + "/" + Day + "/" + Year);
+	}
+}

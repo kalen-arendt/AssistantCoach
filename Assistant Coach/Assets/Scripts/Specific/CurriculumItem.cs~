@@ -1,0 +1,44 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public struct CurriculumItem 
+{
+	//Fields
+
+	readonly public eTopics topic;
+	readonly public Color color;
+	readonly public string objName;
+
+
+	//Property
+
+	public string Name { get { return topic.ToDisplay ();}}
+
+
+
+	//Constructors
+
+	public CurriculumItem (eTopics _topic)
+	{
+		topic = _topic;
+		color = Color.black;
+		objName = "";
+	}
+
+	public CurriculumItem (eTopics _topic, Color _color, string ObjName)
+	{
+		topic = _topic;
+		color = _color;
+		objName = ObjName;
+	}
+
+
+
+	//Methods
+
+	public override string ToString ()
+	{
+		return string.Format ("{0}, {1}, {2}", topic, color, Name);
+	}
+}

@@ -1,0 +1,157 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public struct SaveObject
+{
+	public readonly Date date;
+	public readonly int age;
+	public readonly SaveObject.IndexTopicPair[] ITpairArray;
+
+	public readonly List<int> timeList;
+	public readonly int TotalTime;
+
+
+	public string TopicSummary
+	{
+		get 
+		{
+			string str = "";
+
+			for (int i = 0; i < ITpairArray.Length;i++)
+				str += ITpairArray[i].topic + "-";
+
+			str = str.Remove (str.Length - 1);
+
+			return str;
+		}
+	}
+	public string uAge {get { return "u" + age;}}
+
+
+
+
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="SaveObject"/> struct.
+	/// </summary>
+	/// <param name="itpArray">Itp array.</param>
+	/// <param name="_date">Date. Follows Month Day Year (x,y,z).</param>
+	public SaveObject (SaveObject.IndexTopicPair[] itpArray, Date _date, int Age, int time, List<int> TimeList)
+	{
+		ITpairArray = itpArray;
+		date = _date;
+		age = Age;
+		TotalTime = time;
+		timeList = new List<int> (TimeList);
+
+	}
+
+
+
+	//====================================================================================//
+
+	/// <summary>
+	/// Holds data for displaying saved sessions on menu.
+	/// </summary>
+	public struct DateIndexSummaryTriplet
+	{
+		public readonly Date date;
+		public readonly int index;
+		public readonly string summary;
+
+
+		/// 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DateIndexSummary"/> struct.
+		/// </summary>
+		/// <param name="_index">Index array.</param>
+		/// <param name="_date">Date.</param>
+		///<param name="_summary">The summary of the session</param>
+		/// 
+		public DateIndexSummaryTriplet (int _index, Date _date, string _summary)
+		{
+			date = _date;
+			index = _index;
+			summary = _summary;
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("Session {0} [{1}], created {2}", index, summary, date);
+		}
+
+	}
+
+
+
+	/// <summary>
+	/// Index topic pair.
+	/// </summary>
+	public struct IndexTopicPair
+	{
+		public readonly int index;
+		public readonly eTopics topic;
+
+		public IndexTopicPair (int _index, eTopics _topic)
+		{
+			index = _index;
+			topic = _topic;
+		}
+
+		public IndexTopicPair (int _index, int _topic)
+		{
+			index = _index;
+			topic = (eTopics)_topic;
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("{0} @ index {1}", topic, index);
+		}
+	}
+
+
+
+	public struct SavedSession
+	{
+		//
+
+		//Fields
+
+
+		public readonly IndexTopicPair[] ITP_Array;
+		public readonly string Summary;
+		public readonly Date Date;
+
+
+		//
+
+		//
+
+		public SavedSession (IndexTopicPair[] blockArray, string summary, Date date)
+		{
+			ITP_Array = blockArray;
+			Summary = summary;
+			Date = date;
+		}
+
+
+		public override string ToString ()
+		{
+			if (Summary == "" || Date.ToString () == "")
+				return null;
+			return (Summary + " created " + Date);
+		}
+
+
+		/*public SavedSession (int[] indexs, string[] topicArray, string summary, string date)
+		{
+			Indexs = indexs;
+			Topics = topicArray;
+			Summary = summary;
+			Date = date;
+		}*/
+
+	}
+}

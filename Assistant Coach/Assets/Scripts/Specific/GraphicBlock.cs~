@@ -1,0 +1,19 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+[CreateAssetMenu (menuName = "TrainingBlock/Graphic Block", fileName = "Graphic Block", order = 2)]
+public class GraphicBlock : BaseBlockAsset
+{
+
+
+	public Sprite description;
+
+	public override BlockStruct blockStruct
+	{
+		get {return new BlockStruct (drillImage, description);}
+	}
+
+}
+

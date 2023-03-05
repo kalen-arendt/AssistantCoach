@@ -1,0 +1,55 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+[RequireComponent(typeof (Image))]
+public class FadeIn : MonoBehaviour {
+
+
+	//Components
+
+	private Image FadePanel;
+
+
+
+	//Fields
+
+	public float duration;
+	public bool destroy;
+
+
+	private Color currentColor;
+	private Color startColor = Color.black;
+	private Color finishColor = Color.clear;
+
+	private double percent = 0;
+
+	private bool fading = true;
+
+
+
+	//Methods
+
+	void Start () 
+	{
+		FadePanel = GetComponent<Image> ();
+		FadePanel.color = startColor;
+	}
+
+
+	void Update ()
+	{
+		if (fading)
+		{
+			FadePanel.color = Color.Lerp (startColor, finishColor, (float)percent);
+			percent += Time.deltaTime / duration;
+		}
+
+
+		if (percent > 0.99f)
+			if (destroy)
+				Destroy (gameObject);
+			else
+				fading = false;
+	}
+
+}

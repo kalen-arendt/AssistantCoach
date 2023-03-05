@@ -1,0 +1,38 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public static class Extensions
+{
+	public static string ToDisplay (this eTopics topic)
+	{
+		switch (topic) {
+		case eTopics.PR:
+			return "P+R";
+		case eTopics.PwG:
+			return "Pw/G";
+		case eTopics.PwT:
+			return "Pw/T";
+		case eTopics.VA:
+			return "V+A";
+		case eTopics._1v1D:
+			return "1v1D";
+		default :
+			return topic.ToString ();
+		}
+	}
+
+
+
+	public static void AddEvent (this IconButton button)
+	{
+		var creator = MonoBehaviour.FindObjectOfType<CreationManager> ();
+
+		if (creator != null)
+		{
+			creator.AddEvent (button.curriculumItem);
+		}
+	}
+
+
+}

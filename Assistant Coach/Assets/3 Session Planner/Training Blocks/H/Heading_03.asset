@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: Heading_03
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: c9a7a83a0fff76e4fbd64ebeba41506a, type: 3}
+  minAge: 11
+  maxAge: 14
+  type: 0
+  MajorTopics: 0a000000
+  MinorTopics: 
+  description: "Detail\r\nSet up a goal with poles (6 yards apart). Have one team
+    behind each cone. One player from the red team starts in net, coach tosses a ball
+    in the air for the white player to head and try to score a goal, if goal is scored
+    or missed, the player that just headed the ball goes in net, and player that was
+    in net grabs the ball and gives it to the coach. Then goes behind his/her team\u2019s
+    line.\r\nProgressions\r\nN/A\r\nAdaptations\r\nThis exercise should only be performed
+    with U11+ age groups.\r\n"

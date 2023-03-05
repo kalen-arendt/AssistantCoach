@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: 1v1Defending_01
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: b3649b57a641f884682fb5bf48245bba, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 1
+  MajorTopics: 0b000000
+  MinorTopics: 
+  description: "Detail\r\nIn a 8x15y grid, have players stand on opposite ends of
+    the grid; one side will have the soccer balls (see picture). Player that starts
+    with the ball passes it to the player on the other side of the grid. Then the
+    2 players go 1v1 until the ball goes out or someone dribbles it past the end line.
+    \r\nProgressions\r\nHave the player chip the ball into the air to the attacking
+    player.\r\nAdd gates that players need to score on.\r\nAdaptations\r\nDepending
+    on # of players you may need to make 2 grids.\r\n"

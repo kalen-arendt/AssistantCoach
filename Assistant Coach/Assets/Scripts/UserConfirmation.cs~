@@ -1,0 +1,43 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+
+
+[RequireComponent (typeof (GraphicRaycaster))]
+public class UserConfirmation : MonoBehaviour {
+
+
+	public Text Summary;
+	public List<Button> ButtonList;
+
+
+	public delegate void Function ();
+
+
+	public void SetButtons (List<List<UnityAction>> functionList, string summary)
+	{
+		for (int i = 0; i < ButtonList.Count; i++)
+		{
+			foreach (UnityAction Event in functionList[i])
+				ButtonList [i].onClick.AddListener (Event);
+			
+			ButtonList [i].onClick.AddListener (Remove);
+		}
+
+		Summary.text = summary;
+	}
+
+
+	void DoSomething () {}
+
+
+
+	public void Remove ()
+	{
+		Destroy (gameObject);
+	}
+
+
+}

@@ -1,0 +1,25 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SavedDrillDisplay : MonoBehaviour {
+
+
+	public Text summary, date;
+
+
+
+	internal SaveObject.DateIndexSummaryTriplet sessionData;
+
+
+
+	public void UpdateObject ()
+	{
+		summary.text = sessionData.summary;
+		date.text = sessionData.date.ShortDate ();
+	}
+
+
+
+}

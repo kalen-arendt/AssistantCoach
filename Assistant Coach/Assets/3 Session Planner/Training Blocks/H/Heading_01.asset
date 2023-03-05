@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: Heading_01
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: b0607fa38cf88d944a6b75fd470450f4, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 0a000000
+  MinorTopics: 
+  description: "Detail\r\nPlayers self-toss a ball up in the air and then head the
+    ball back in the air and catch it. \r\nProgressions\r\nIf players are confident
+    to head and catch, have the player head it twice in a row before they catch it.\r\nAdaptations\r\nIf
+    there aren\u2019t enough balls, have players pair up.\r\n"

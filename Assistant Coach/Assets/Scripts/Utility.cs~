@@ -1,0 +1,31 @@
+﻿using UnityEngine.SceneManagement;
+
+
+public static class Utility 
+{
+	
+	public static void LoadNextLevel ()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
+	}
+
+	/*public static void LoadLevel (string name)
+	{
+		if (name != "" && SceneManager.GetSceneByName(name) != null)
+		{
+			SceneManager.LoadScene(name);
+		}
+		else
+			return;
+	}
+
+	public static void LoadLevel (Scene scene)
+	{
+		SceneManager.LoadScene(scene.buildIndex);
+	}
+
+	public static void LoadLevel (int sceneBuildIndex)
+	{
+		SceneManager.LoadScene(sceneBuildIndex);
+	}*/
+}

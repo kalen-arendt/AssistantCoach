@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: Dribbling_Activity_03
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: f56e780ebc31f13448add69ce945becc, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 
+  MinorTopics: 
+  description: "Detail\r\nPlayers will perform a move (scissors, sole role, 2 footed
+    outside foot V) at the yellow cone, then dribble through the red cones, perform
+    another move at the yellow cone, turn around the last red cone and then run back
+    with the ball to the start. Second player can start when the first player gets
+    to the end of the tight dribbling section. \r\nProgressions\r\nAdd restrictions
+    to how players can dribble through the cones (ie. Only left foot, only using outsides
+    of the feet, etc.).\r\nAdaptations\r\nMake enough lines so that there are only
+    3 or 4 players per line.\r"

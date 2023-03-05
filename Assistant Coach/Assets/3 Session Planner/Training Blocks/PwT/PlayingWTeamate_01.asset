@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: PlayingWTeamate_01
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 7ec1ccf7398dd694ca4e04cc5a5f5e41, type: 3}
+  minAge: 9
+  maxAge: 16
+  type: 1
+  MajorTopics: 07000000
+  MinorTopics: 
+  description: "Detail\r\n2v2 to two goals in a 20x15 yard space. Goals are 1.5 yards
+    wide. Red player passes to grey player who plays in one touch to their teammate
+    in grey. Players who passed the ball enter the field to play 2v2. Must score past
+    the half way line. When the ball goes out or a goal is scored everyone gets off
+    the field for four new players to play. Players switch lines with their teammate.\r\nProgressions\r\nN/A\r\nAdaptations\r\n*Note
+    8 players minimum are needed, 12 players is best.\r\n"

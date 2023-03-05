@@ -1,0 +1,65 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+[ExecuteInEditMode()]
+public abstract class BaseBlockAsset : ScriptableObject
+{
+	public abstract BlockStruct blockStruct {get;}
+
+	public Sprite drillImage;
+
+	public drillType type;
+
+	[Range (9, 17)]
+	public int minAge;
+	[Range (10,18)]
+	public int maxAge;
+
+	void OnEnable ()
+	{
+		if (maxAge < 10)
+			maxAge = 10;
+		if (minAge < 9)
+			minAge = 9;	
+	}
+
+
+	public List<topics> MajorTopics;
+	public List<topics> MinorTopics;
+
+
+	public enum topics {SA, PL, BS, D, R, PR, SSG, PwT, PwG, }		
+	public enum drillType {Activity, Game}
+
+}
+
+
+public struct BlockStruct
+{
+	public readonly Sprite mySprite;
+	public readonly Sprite descriptionGraphic;
+	public readonly string descriptionText;
+
+
+	readonly public Description_Type descriptionType;
+	public enum Description_Type {graphic, text}
+
+	public BlockStruct (Sprite sprite, string description) 
+	{
+		mySprite = sprite;
+		descriptionText = description;
+		descriptionType = Description_Type.text;
+		descriptionGraphic = null;
+	}
+
+	public BlockStruct (Sprite sprite, Sprite description) 
+	{
+		mySprite = sprite;
+		descriptionText = null;
+		descriptionType = Description_Type.graphic;
+		descriptionGraphic = description;
+	}
+	
+}

@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+
+[RequireComponent (typeof (Canvas), typeof (GraphicRaycaster))]
+public class MaskObj : MonoBehaviour, IPointerDownHandler
+{
+	
+
+	public Footer footer {
+		private get;
+		set;
+	}
+
+
+	void OnEnable ()
+	{
+		var myCanvas = GetComponent<Canvas> ();
+		myCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+		myCanvas.sortingOrder = 50;
+	}
+
+
+
+	public void OnPointerDown (PointerEventData data)
+	{
+		//var footer = FindObjectOfType<ApplicationController> ().currentCanvas.GetComponentInChildren<Footer>();
+
+		if (footer != null)
+			footer.ToggleFooter ();
+	}
+}

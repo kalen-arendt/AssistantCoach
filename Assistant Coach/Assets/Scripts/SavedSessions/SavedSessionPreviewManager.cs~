@@ -1,0 +1,93 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class SavedSessionPreviewManager : MonoBehaviour {
+
+
+	//Conponents
+
+	public Transform parent;
+	public GameObject Template;
+
+
+	//Objects
+
+	public GameObject confirmationWindow;
+	public GameObject messageWindow;
+
+
+	//Fields
+
+	private List<SavedSessionPreviewObject> savedSessionArray = new List<SavedSessionPreviewObject> ();
+	private const string message = "Permanetly Delete All Sessions?";
+	private const string notif1 = "Sessions have been deleted";
+
+
+	//Methods
+
+	public void OnEnable ()
+	{
+		UpdateSavedSessions ();
+	}
+
+
+	public void UpdateSavedSessions ()
+	{
+		SaveObject.DateIndexSummaryTriplet[] dataArray = PlayerPrefsManager.GetSessionDescriptions ();
+
+		while (dataArray.Length < savedSessionArray.Count)
+		{
+			var v = savedSessionArray [savedSessionArray.Count - 1];
+			savedSessionArray.RemoveAt (savedSessionArray.Count - 1);
+			Destroy (v.gameObject);
+		}
+
+		for (int i = 0;i < dataArray.Length; i++)
+		{
+			if (i >= savedSessionArray.Count)
+			{
+				GameObject obj = Instantiate (Template, parent) as GameObject;
+				savedSessionArray.Add(obj.GetComponent<SavedSessionPreviewObject> ());
+			}
+
+			var s = savedSessionArray [i];
+			s.sessionData = dataArray [i];
+			s.UpdateObject ();
+		}
+	}
+
+
+
+
+	public void DeleteButton ()
+	{
+		var obj = Instantiate (confirmationWindow) as GameObject;
+		var confirm = obj.GetComponent<UserConfirmation>();
+
+		List<List<UnityAction>> functionList = new List<List<UnityAction>> ();
+		List<UnityAction> function1 = new List<UnityAction> ();
+
+		function1.Add (DeleteSessions);
+		function1.Add (HideFooter);
+		functionList.Add (function1);
+
+		confirm.SetButtons (functionList, message);
+	}
+
+
+	private void HideFooter ()
+	{
+		GetComponentInChildren<Footer>().ToggleFooter ();
+	}
+
+
+	private void DeleteSessions ()
+	{
+		FindObjectOfType<ApplicationController> ().DeleteAllSavedSessions ();
+		var obj = Instantiate (messageWindow) as GameObject;
+		obj.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+		obj.GetComponent<Message>().ShowMessage (notif1);
+	}
+
+}

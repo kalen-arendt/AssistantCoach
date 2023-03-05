@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: Heading_02
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: d409b415761c5e54e8d54908d931cd7e, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 0a000000
+  MinorTopics: 
+  description: "Detail\r\nPlayer stands 8yds behind the goal and kicks a ball from
+    their hands to their partner who starts 10yds in front of the goal.  Receiving
+    partner must head the ball over the goal for the serving partner to catch.  Play
+    for 8mins to see which lane gets the most points.  \r\nProgressions\r\nReceiving
+    player heads to goal: 2pts for hitting the net on the fly, 1pt for a 1-bouncer
+    and 0pts for multiple bounces.  Play for 8mins to see which lane gets the most
+    points. \r\nPlay with a GK 1pt for scoring a goal. 8min game.\r\nAdaptations\r\nN/A\r\n"

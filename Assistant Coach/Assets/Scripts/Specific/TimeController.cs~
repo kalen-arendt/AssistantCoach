@@ -1,0 +1,90 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+
+public class TimeController : MonoBehaviour {
+
+	public List<TimeSelect> timers;
+	public Text time;
+	public Text sessionLength;
+
+	public static List<int> timeList = new List<int> {0,0,0,0};
+
+
+	public int blocks 
+	{
+		get 
+		{
+			int i = 0;
+			foreach (TimeSelect timer in timers)
+				if (timer.On)
+					i++;
+			return i;
+		}
+	}
+	public static int TotalTime;
+
+	void Awake ()
+	{
+		for (int i = 0; i < timers.Count; i++)
+			timers [i].index = i;
+	}
+
+
+	void Start ()
+	{
+		SendPercentage ();
+	}
+
+
+	public void GetTotalTime ()
+	{
+		TotalTime = 0;
+
+		foreach (TimeSelect timer in timers)
+			TotalTime += timer.myTime;
+		
+
+		time.text = TotalTime.ToString ();
+	}
+
+
+	void SetSessionLengthText ()
+	{
+		sessionLength.text = blocks.ToString ();
+		FindObjectOfType<CreationManager> ().SetBlockLimit (blocks);
+	}
+
+
+	public void ChangeTime (int _index, int _time)
+	{
+		timeList [_index] = _time;
+
+		GetTotalTime ();
+
+		SendPercentage ();
+
+		SetSessionLengthText ();
+	}
+
+
+	void SendPercentage ()
+	{
+		double x = 0;
+		double y = 0;
+
+		for (int i = 0; i < timers.Count; i++ , x = y)
+		{
+			if (timeList [i] != 0)
+				y += (float)timeList [i] / (float)TotalTime;
+			else if (TotalTime == 0)
+				y += 0.25f;
+
+			timers [i].ResizeToPercentage ((float)x, (float)y);
+		}
+	}
+
+
+}

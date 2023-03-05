@@ -1,0 +1,38 @@
+﻿using UnityEngine;
+
+public struct BlockStruct
+{
+
+	//Fields
+
+	public readonly Sprite mySprite;
+	public readonly Sprite descriptionGraphic;
+	public readonly string descriptionText;
+
+
+
+	//Enumerations
+
+	readonly public Description_Type descriptionType;
+	public enum Description_Type {graphic, text}
+
+
+
+	//Constructors
+
+	public BlockStruct (Sprite sprite, string description) 
+	{
+		mySprite = sprite;
+		descriptionText = description;
+		descriptionType = Description_Type.text;
+		descriptionGraphic = null;
+	}
+
+	public BlockStruct (Sprite sprite, Sprite description) 
+	{
+		mySprite = sprite;
+		descriptionText = null;
+		descriptionType = Description_Type.graphic;
+		descriptionGraphic = description;
+	}
+}

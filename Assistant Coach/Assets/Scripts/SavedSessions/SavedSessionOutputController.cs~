@@ -1,0 +1,50 @@
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+
+public class SavedSessionOutputController : BaseOutputSessionManager {
+
+
+	//Field
+
+	private List<BaseDrillDisplay> drillPrefabList = new List<BaseDrillDisplay> ();
+
+
+
+	//Method
+
+	public void ShowSavedSession (int index)
+	{
+		SaveObject 				savedSession 	= PlayerPrefsManager.GetSavedSession (index);
+		SaveObject.IndexTopicPair[] 	itpArray 		= savedSession.ITpairArray;
+		List<BaseBlockAsset>		MasterList 		= appController.masterDataBase.List;
+
+		ShowSessionData (savedSession.date, savedSession.TopicSummary, savedSession.uAge, savedSession.TotalTime);
+
+		//Remove any extra Prefabs
+		while (itpArray.Length < drillPrefabList.Count)
+		{
+			BaseDrillDisplay v = drillPrefabList [drillPrefabList.Count - 1];
+			drillPrefabList.RemoveAt (drillPrefabList.Count - 1);
+			Destroy (v.gameObject);
+		}
+
+
+		//Instantiates necessary Prefabs
+		for (int i = 0; i < itpArray.Length; i++)
+		{
+			if (i >= drillPrefabList.Count)
+			{
+				GameObject obj = Instantiate (template, parent) as GameObject;
+				drillPrefabList.Add(obj.GetComponent<BaseDrillDisplay> ());
+			}
+
+			drillPrefabList [i].ShowDrillBaseRootIndex (MasterList [itpArray [i].index].blockStruct, i, savedSession.timeList [i], itpArray[i].topic);
+		}
+
+		SetAllLayouts ();
+
+		Canvas myCanvas = GetComponent<Canvas> ();
+		appController.CallNext (myCanvas);
+	}
+}

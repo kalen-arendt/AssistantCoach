@@ -1,0 +1,65 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+[CreateAssetMenu (menuName = "DataBase/Drill Collection")]
+public class SessionDataBase : ScriptableObject {
+
+	//
+	//This is a data base of Blocks
+	//
+
+	public string Name;
+	public string Abbreviation;
+
+	[Space]
+
+	public List<BaseBlockAsset> List;
+
+
+	public BaseBlockAsset GetRandomDrill ()
+	{
+		int x = 0, y = List.Count;
+		var a = Random.Range(x,y);
+
+		return List [a];
+	}
+
+
+	public enum drill_type {activity, game, any}
+
+	public List<BaseBlockAsset> GetPossibleDrillsList (eTopics topic, drill_type type, int Age)
+	{
+		List<BaseBlockAsset> list = new List<BaseBlockAsset> ();
+
+		//HMM this works for now but i dont really want to use a min and a max age do i?
+		//when you change it so that there's just one age in the params, flip the "<,>" to ">,<"
+
+		foreach (BaseBlockAsset drill in List)
+			if (drill.MajorTopics.Contains (topic) && drill.minAge <= Age && drill.maxAge >= Age)
+			if ((type == drill_type.activity && drill.type == BaseBlockAsset.drillType.Activity) ||
+				(type == drill_type.game && drill.type == BaseBlockAsset.drillType.Game) ||
+				type == drill_type.any)
+					list.Add (drill);
+
+		return list;
+	}
+
+
+}
+
+
+public class SessionList : ScriptableObject {
+
+	public List<BaseBlockAsset> List;
+
+
+	public BaseBlockAsset GetRandomDrill ()
+	{
+		int x = 0, y = List.Count;
+		var a = Random.Range(x,y);
+
+		return List [a];
+	}
+}

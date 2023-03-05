@@ -1,0 +1,41 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class BaseDisplayManager : MonoBehaviour {
+
+
+	public Transform parent;
+	public GameObject template;
+
+	[Space]
+
+	public Text age;
+	public Text summary;
+	public Text date;
+	public Text time;
+
+
+	protected ApplicationController appController;
+
+
+	void OnEnable ()
+	{
+		appController = FindObjectOfType<ApplicationController> ();
+	}
+
+
+	public void ShowSessionData (Date Date, string Summary, string Age, int Time)
+	{
+		date.text = Date.LongDateS ();
+		summary.text = Summary;
+		age.text = Age;
+		time.text = Time + "min";
+	}
+
+
+
+
+
+}

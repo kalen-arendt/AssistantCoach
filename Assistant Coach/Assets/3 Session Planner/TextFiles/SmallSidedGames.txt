@@ -1,0 +1,55 @@
+Small Sided Games
+--------------------------------------
+/============================/
+SSG_01
+Detail
+Play 2v2 in a 24x16 yard field. Play maximum 5 minute games. Have fields set up in such a way that the losing team moves down a grid and winning team moves up a grid.
+Progressions
+N/A
+Adaptations
+N/A
+
+/============================/
+SSG_02
+Detail
+Play 3v3 in a 20x30 yard grid. Have teams keep track of points (0 points for a loss, 3 for a win, 1 for a tie). Play 5 minute games and then rotate. All losing teams should get some sort of fitness at the end.
+Progressions
+N/A
+Adaptations
+N/A
+
+/============================/
+SSG_03
+Detail
+Play 4v4 in a 25x35 yard grid. Have teams keep track of points (0 points for a loss, 3 for a win, 1 for a tie). Play 7 minute games and then rotate. All losing teams should get some sort of fitness at the end.
+Progressions
+N/A
+Adaptations
+N/A
+
+/============================/
+SSG_04
+Detail
+Play 5v5 (with GK’s) in a 25x40 yard grid. Have teams keep track of points (0 points for a loss, 3 for a win, 1 for a tie). Play 7 minute games and then rotate. All losing teams should get some sort of fitness at the end.
+Progressions
+N/A
+Adaptations
+N/A
+
+/============================/
+SSG_05
+
+/============================/
+SSG_06
+
+/============================/
+SSG_07
+
+/============================/
+SSG_08
+
+/============================/
+SSG_09
+
+/============================/
+SSG_010

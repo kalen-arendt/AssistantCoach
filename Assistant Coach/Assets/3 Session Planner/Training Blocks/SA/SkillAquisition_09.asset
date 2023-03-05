@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: SkillAquisition_09
+  m_EditorClassIdentifier: Assembly-CSharp::DetailBlock
+  drillImage: {fileID: 21300000, guid: 64f93d088d0ada94b8220e3a6b2d6eaa, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 00000000
+  MinorTopics: 
+  description: "Detail\r\nLadder spacing = 10x10. Players work in pairs. Both players
+    start behind the line with one partner having the ball in their hands and the
+    other ready to receive. Each time they are successful they move up a rung in the
+    ladder. To get 1pt pairs must perform the skill 4 consecutive times (once in each
+    rung of the ladder) alternating the server and the receiver. If they mess up they
+    go back to the beginning and start over but they maintain their pts. Play until
+    a pair gets the target number of pts for that skill. Ie; Kick, Head(receiver),
+    Catch(server). Only 1 pair in a rung of the ladder at a time.\r\nCoaching pts:
+    \r\n1. Strike ball with laces for service\r\n2. Be on toes so to adjust body position
+    appropriately\r\n3. Judge the flight of the ball first then get body in line with
+    the ball\r\n4. Square body to the target\r\n5. Present surface and cushion the
+    ball\r\n6. Controlled ball should remain in front of the body\r\nProgressions:\r\n1.
+    Bounce Kick-Catch, 2. Bounce Kick-Head-Catch, 3. Bounce Kick-Control-bounce kick-Catch,
+    4. \r\n"

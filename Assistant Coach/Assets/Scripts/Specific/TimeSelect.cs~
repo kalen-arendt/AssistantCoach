@@ -1,0 +1,117 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TimeSelect : MonoBehaviour {
+
+
+	public Text localDisplay;
+	public GameObject Cover;
+	public RectTransform proportionalDisplay;
+	public Text percentageText;
+	public bool On;
+
+
+
+
+	internal int myTime = 20;
+	internal int index = -1;
+
+
+	private int tempTime;
+
+
+	public const int TIME_INCREMENT = 5;
+
+
+	//Awake => OnEnable >> TimeController:: Awake => OnEnable//
+
+
+	void Awake ()
+	{
+		tempTime = myTime;
+	}
+
+	void Start ()
+	{
+		SetCoverActive (!On);
+	}
+
+
+
+	void UpdateText ()
+	{
+		localDisplay.text = myTime.ToString ();
+
+		if (myTime != 0)
+		{
+			float percent = Mathf.Round(100f * (float)myTime / (float)TimeController.TotalTime);
+			percentageText.text = (percent + "%");
+		}
+		else
+		{
+			percentageText.text = "-";
+		}
+	}
+
+
+
+	public void ChangeTime (bool increase)
+	{
+		int x = TIME_INCREMENT;
+		if (!increase)
+			x = x * -1;
+
+		if (myTime + x >= 0)
+			ChangeTime (myTime + x);
+	}
+
+
+	private void ChangeTime (int _time)
+	{
+		if (index == -1)
+			return;
+		else
+		{
+			myTime = _time;
+
+			FindObjectOfType<TimeController> ().ChangeTime (index, _time);
+
+			UpdateText ();
+		}
+	}
+
+
+
+	public void ResizeToPercentage (float min, float max)
+	{
+		proportionalDisplay.GetComponent<RectTransform> ();
+
+		proportionalDisplay.anchorMin = new Vector2 (min, 0);
+		proportionalDisplay.anchorMax = new Vector2 (max, 1);
+
+		UpdateText ();
+	}
+
+
+
+	public void SetCoverActive (bool value)
+	{
+		Cover.SetActive (value);
+		On = !value;
+
+		if (value == false)
+		{
+			ChangeTime (tempTime);
+		}
+		else
+		{
+			tempTime = myTime;
+			ChangeTime (0);
+
+		}
+	}
+
+
+}

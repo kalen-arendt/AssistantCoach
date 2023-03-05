@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf4c4f5302f00b4cb0bced86f2076b6, type: 3}
+  m_Name: BallStriking_01
+  m_EditorClassIdentifier: 
+  drillImage: {fileID: 21300000, guid: 20d4a3678767cfc488c0af1e733ae932, type: 3}
+  minAge: 9
+  maxAge: 10
+  type: 0
+  MajorTopics: 02000000
+  MinorTopics: 
+  description: "Detail\r\nPlayers pair up and strike a ball back and forth over incrementally
+    greater distances using proper ball striking technique. Once players are confident,
+    every time their partner is able to control the ball out of the air behind the
+    appropriate set of cones, one point is awarded. Play up to 10 points.\r\nProgressions\r\nProgress
+    from striking a dead ball to striking a moving ball. \r\n\nIf there is an odd
+    number of players, have a group of 3 and have two of them rotate.\r\n"

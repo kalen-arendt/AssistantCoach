@@ -1,0 +1,40 @@
+﻿using UnityEngine;
+using UnityEngine.UI;
+
+public class SavedSessionPreviewObject : MonoBehaviour {
+
+
+	//Components
+
+	public Text summary, date;
+
+
+
+	//Fields
+
+	internal SaveObject.DateIndexSummaryTriplet sessionData;
+
+
+
+
+	//Methods
+
+	internal void UpdateObject ()
+	{
+		summary.text = sessionData.summary;
+		date.text = sessionData.date.ShortDate ();
+	}
+
+
+	public void ShowSession ()
+	{
+		FindObjectOfType<SavedSessionOutputController> ().ShowSavedSession (sessionData.index);
+	}
+
+
+	public void DeleteSession ()
+	{
+		PlayerPrefsManager.RemoveSession (sessionData.index);
+		FindObjectOfType<SavedSessionPreviewManager> ().UpdateSavedSessions ();
+	}
+}
