@@ -79,7 +79,7 @@ public static class PlayerPrefsManager
 
 		public static void RemoveSession (int sessionIndex)
 		{
-			var session_path = SESSION + sessionIndex;
+			string session_path = SESSION + sessionIndex;
 
 			if (PlayerPrefs.GetInt(session_path + EXISTS) != 1) {
 				return;
@@ -113,8 +113,9 @@ public static class PlayerPrefsManager
 
 		static Date GetDate (int index)
 		{
-			if (PlayerPrefs.GetInt (SESSION + index + EXISTS, -1) != 1)
+			if (PlayerPrefs.GetInt (SESSION + index + EXISTS, -1) != 1) {
 				return new Date ();
+			}
 
 			int m = PlayerPrefs.GetInt (SESSION + index + DATE + "m");
 			int d = PlayerPrefs.GetInt (SESSION + index + DATE + "d");
@@ -146,87 +147,6 @@ public static class PlayerPrefsManager
 			}
 
 			return subjectData.ToArray ();
-		}
-	}
-
-
-
-	public static class TeamSheet
-	{
-		const string TEAM_SHEET = "TEEM_SHEET";
-		const string ROSTER = "roster_";
-		const string ID_NUM = "id_number_";
-
-		const string TEAM_SHEET_PATH = TEAM_SHEET + ID_NUM;
-		const string ROSTER_PATH = ROSTER + ID_NUM;
-
-		const string MAX = "max_";
-		const string NAME = "name_";
-
-
-		public static void SavePlayer (Player player)
-		{
-			string player_path = ID_NUM + player.id;
-			PlayerPrefs.SetString(player_path + NAME, player.Name);
-		}
-
-		public static List<Player> GetRosterPlayers ()
-		{
-			var max = PlayerPrefs.GetInt(ROSTER + MAX);
-			var players = new List<Player>();
-
-			for (int i = 0; i < max; i++)
-			{
-				var id = PlayerPrefs.GetString(ROSTER_PATH + i);
-				players.Add(GetPlayer(id));
-			}
-
-			return players;
-		}
-
-		public static List<Player> GetTeamSheet ()
-		{
-			var max = PlayerPrefs.GetInt(TEAM_SHEET + MAX, 0);
-			if (max <= 0) { return GetRosterPlayers(); }
-
-			var players = new List<Player>();
-
-			for (int i = 0; i < max; i++)
-			{
-				var id = PlayerPrefs.GetString(TEAM_SHEET_PATH + i);
-				players.Add(GetPlayer(id));
-			}
-
-			return players;
-		}
-
-		static Player GetPlayer (string id)
-		{
-			var player_path = ID_NUM + id;
-			var name = PlayerPrefs.GetString(player_path + NAME);
-			return new Player(id, name);
-		}
-
-		public static void SetRosterPlayers (List<Player> players)
-		{
-			string roster_path = ROSTER + ID_NUM;
-			int i;
-			for (i = 0; i < players.Count; i++)
-			{
-				var player = players[i];
-				PlayerPrefs.SetString(roster_path + i, player.id);
-
-				string player_path = ROSTER + player.id;
-				PlayerPrefs.SetString(player_path + NAME, player.Name);
-			}
-
-
-			var max = PlayerPrefs.GetInt(ROSTER + MAX, 0);
-			Debug.Log("Roster Size: " + i);
-
-			if (i > max) {
-				PlayerPrefs.SetInt(ROSTER + MAX, i);
-			}
 		}
 	}
 

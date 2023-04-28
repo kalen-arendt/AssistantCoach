@@ -6,15 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/1 Splash Screen/0 Splash Specific.unity
+    path: Assets/1 Splash Screen/1-Start-Screen.unity
     guid: 94ce4acec9d5c204c8fb02bc0b8e48b4
   - enabled: 1
-    path: Assets/2 Main Menu/1 Main Menu.unity
-    guid: 0f8db13bc9277f2408ba216359ff6d51
-  - enabled: 1
-    path: Assets/3 Session Planner/2 Session Planner.unity
+    path: Assets/2-Session-Assistant/2-Session-Assistant.unity
     guid: a6d81b297e4ba5346a1ce6b6f2800ca5
-  - enabled: 1
-    path: Assets/4 Teamsheet/3 Team Sheet.unity
-    guid: 43154d712afdeb54e91e3fde980c4432
   m_configObjects: {}

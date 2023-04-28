@@ -88,11 +88,11 @@ public class Timeline : MonoBehaviour
 		for (int i = 0; i < 4; i++)
 		{
 			bool startActive = timeList [i] == 0;
-			timers [i].SetCoverActive (startActive);
+			timers[i].SetCoverActive (startActive);
 
 			if (startActive)
 			{
-				timers [i].SetTime (timeList [i]);
+				timers[i].SetTime (timeList [i]);
 			}
 		}
 	}

@@ -1,22 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChildContentFitter : ContentSizeFitter {
-
+public class ChildContentFitter : ContentSizeFitter
+{
 	//Events
-
-	public delegate void OnDimentionsChangedDelagate (Vector2 vector2);
-	public event OnDimentionsChangedDelagate OnDimentionsChangedEvent;
-
+	public event Action<Vector2> OnDimentionsChangedEvent;
 
 
 	//Fields
-
 	private RectTransform rectTransform;
 	private Vector2 latestSize;
-
 
 
 	//Inherited Methods
@@ -30,11 +24,11 @@ public class ChildContentFitter : ContentSizeFitter {
 	}
 
 
-
 	void LateUpdate ()
 	{
-		if (CheckDifference (rectTransform.sizeDelta))
+		if (CheckDifference (rectTransform.sizeDelta)) {
 			SendSizeDelta ();
+		}
 	}
 
 
@@ -43,8 +37,9 @@ public class ChildContentFitter : ContentSizeFitter {
 
 	bool CheckDifference (Vector2 size)
 	{
-		if (size == latestSize)
+		if (size == latestSize) {
 			return true;
+		}
 
 		latestSize = size;
 		return false;
@@ -53,15 +48,17 @@ public class ChildContentFitter : ContentSizeFitter {
 
 	void SendSizeDelta ()
 	{
-		if (rectTransform == null)
+		if (rectTransform == null) {
 			rectTransform = (RectTransform)transform;
-		
-		var sizeDelta = rectTransform.sizeDelta;
+		}
 
-		if (OnDimentionsChangedEvent != null)
+		Vector2 sizeDelta = rectTransform.sizeDelta;
+
+		if (OnDimentionsChangedEvent != null) {
 			OnDimentionsChangedEvent (sizeDelta);
-		else
+		}
+		else {
 			GetComponentInParent<ParentContentFitter> ().ChangeDimentions (sizeDelta);
+		}
 	}
-
 }

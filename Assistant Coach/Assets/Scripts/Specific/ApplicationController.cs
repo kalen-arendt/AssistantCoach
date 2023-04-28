@@ -13,12 +13,12 @@ public class ApplicationController : MonoBehaviour
 	float progress, distance, x_offset;
 
 	const float transitionDuration = 0.5f;
-	const int BOARDER = 8;
+	const int BOARDER = 0;
 
 	bool transitioning = false;
 
 	readonly Vector2 NORMAL_MIN_ANCHOR = new Vector2 (0, 0);
-	readonly Vector2 NORMAL_MAX_ANCHOR = new Vector2 (1, .95f);
+	readonly Vector2 NORMAL_MAX_ANCHOR = new Vector2 (1, 1);
 
 
 	enum Transition {next, prev}

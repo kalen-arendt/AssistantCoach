@@ -4,18 +4,15 @@ using UnityEngine.UI;
 public class TimeSelect : MonoBehaviour
 {
 	[SerializeField] Text localDisplay = null;
-	[SerializeField] GameObject Cover = null;
+	[SerializeField] GameObject cover = null;
 	[SerializeField] RectTransform proportionalDisplay = null;
 	[SerializeField] Text percentageText = null;
 
-	bool On;
-
-	int currentTime = 20;
 	int temporaryTime;
-	int index = -1;
 
-	public int Index { set {index = value;} get {return index;}}
-	public int Time { set {currentTime = value;} get {return currentTime;}}
+	private bool On { get; set; }
+	public int Index { set; get; } = -1;
+	public int Time { set; get; } = 20;
 
 
 	const int TIME_INCREMENT = 5;
@@ -26,14 +23,14 @@ public class TimeSelect : MonoBehaviour
 
 	void Awake ()
 	{
-		temporaryTime = currentTime;
+		temporaryTime = Time;
 	}
 
 	// Button
 	public void ChangeTime (bool increase)
 	{
 		int x = increase ? TIME_INCREMENT : -TIME_INCREMENT;
-		int new_time = Mathf.Clamp(x + currentTime, 0, 90);
+		int new_time = Mathf.Clamp(x + Time, 0, 90);
 		UpdateTime (new_time);
 	}
 
@@ -42,7 +39,7 @@ public class TimeSelect : MonoBehaviour
 	{
 		On = !active;
 
-		if (Cover) { Cover.SetActive (active); }
+		if (cover) { cover.SetActive (active); }
 
 		if (On)
 		{
@@ -50,36 +47,36 @@ public class TimeSelect : MonoBehaviour
 		}
 		else
 		{
-			temporaryTime = currentTime;
+			temporaryTime = Time;
 			UpdateTime (0);
 		}
 	}
 
 	void UpdateTime (int newTime)
 	{
-		if (index != -1)
+		if (Index != -1)
 		{
-			currentTime = newTime;
+			Time = newTime;
 
 			if (onTimeChanged != null)
 			{
-				onTimeChanged (index, currentTime);
+				onTimeChanged (Index, Time);
 			}
 		}
 	}
 
 	public void SetTime (int newTime)
 	{
-		currentTime = newTime;
+		Time = newTime;
 	}
 
 	public void ShowValue ()
 	{
-		localDisplay.text = currentTime.ToString ();
+		localDisplay.text = Time.ToString ();
 
-		if (currentTime != 0)
+		if (Time != 0)
 		{
-			float percent = Mathf.Round(100f * (float)currentTime / (float)Timeline.TotalTime);
+			float percent = Mathf.Round(100f * (float)Time / (float)Timeline.TotalTime);
 			percentageText.text = (percent + "%");
 		}
 		else

@@ -24,11 +24,11 @@ public class CurriculumSelection : MonoBehaviour
 
 	public void AddEvent (CurriculumItem item)
 	{
-		if (currentPracticeStructure.Count >= FindObjectOfType<Timeline> ().Blocks) { return; }
+		if (currentPracticeStructure.Count >= FindObjectOfType<Timeline>()?.Blocks) { return; }
 
 		currentPracticeStructure.Add (item);
 
-		GameObject obj = Instantiate (summaryTemplate, parent) as GameObject;
+		GameObject obj = Instantiate (summaryTemplate, parent);
 		summaryObjList.Add (obj);
 
 		Text text = obj.GetComponentInChildren<Text> ();
