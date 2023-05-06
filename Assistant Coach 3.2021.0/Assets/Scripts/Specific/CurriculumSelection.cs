@@ -23,7 +23,15 @@ public class CurriculumSelection : MonoBehaviour
 	{
 		Timeline timeline = FindObjectOfType<Timeline>();
 
-		if (CurrentPracticeStructure.Count >= timeline.CheckNull()?.GetBlocks())
+		if (timeline == null )
+		{
+			Debug.LogWarning($"Object of type `{nameof(Timeline)}` not found.");
+			return;
+			//throw new MissingReferenceException();
+		}
+
+
+		if (CurrentPracticeStructure.Count >= timeline.SelectionCount())
 		{
 			return;
 		}

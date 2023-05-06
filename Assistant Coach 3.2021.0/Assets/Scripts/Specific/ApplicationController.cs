@@ -18,38 +18,45 @@ public class ApplicationController : MonoBehaviour
 
 	private void Start()
 	{
+		Debug.Log($"{nameof(Start)}");
 		currentCanvas = GetComponentInChildren<LevelManager>().GetComponent<Canvas>();
 		currentRect = currentCanvas.GetComponent<RectTransform>();
 	}
 
 	public void CallNext(Canvas canvas)
 	{
+		Debug.Log($"{nameof(CallNext)}");
 		CallNextA(canvas);
 	}
 
 	public void CallPrevious(Canvas canvas)
 	{
+		Debug.Log($"{nameof(CallPrevious)}");
 		CallPreviousA(canvas);
 	}
 
 
 	public void CallNextA(Canvas canvas)
 	{
+		Debug.Log($"{nameof(CallNextA)}");
 		InitializeTransitionA(Transition.next, canvas);
 	}
 
 	public void CallPreviousA(Canvas canvas)
 	{
+		Debug.Log($"{nameof(CallPreviousA)}");
 		InitializeTransitionA(Transition.prev, canvas);
 	}
 
 	public void CallNextB(Canvas canvas)
 	{
+		Debug.Log($"{nameof(CallNextB)}");
 		InitializeTransitionB(Transition.next, canvas);
 	}
 
 	public void CallPreviousB(Canvas canvas)
 	{
+		Debug.Log($"{nameof(CallPreviousB)}");
 		InitializeTransitionB(Transition.prev, canvas);
 	}
 

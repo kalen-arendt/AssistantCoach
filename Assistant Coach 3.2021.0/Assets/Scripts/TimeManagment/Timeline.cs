@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,32 +11,22 @@ public class Timeline : MonoBehaviour
 	[SerializeField] private Text totalTime = null;
 	[SerializeField] private Text sessionLength = null;
 	private CurriculumSelection curriculum;
+
+	public static List<int> timeList = new(MAX_BLOCKS) {0,0,0,0};
+
 	private const int MAX_BLOCKS = 4;
 
-	public static List<int> timeList = new(4) {0,0,0,0};
 
 	public static int GetTotalTime()
 	{
-		var total = 0;
-		foreach (var t in timeList)
-		{
-			total += t;
-		}
-
-		return total;
+		return timeList.Aggregate(
+			seed: 0,
+			func: (total, next) => total + next
+		);
 	}
-	public int GetBlocks()
+	public int SelectionCount()
 	{
-		var i = 0;
-		foreach (var time in timeList)
-		{
-			if (time > 0)
-			{
-				i++;
-			}
-		}
-
-		return i;
+		return timeList.Count(time => time > 0);
 	}
 
 	private void Awake()
@@ -86,15 +77,15 @@ public class Timeline : MonoBehaviour
 		}
 
 		totalTime.text = GetTotalTime().ToString();
-		sessionLength.text = GetBlocks().ToString();
-		curriculum.SetBlockLimit(GetBlocks());
+		sessionLength.text = SelectionCount().ToString();
+		curriculum.SetBlockLimit(SelectionCount());
 	}
 
 	private void GetSavedTimes()
 	{
 		timeList = PlayerPrefsManager.Settings.Timeline;
 
-		for (var i = 0; i < 4; i++)
+		for (var i = 0; i < MAX_BLOCKS ; i++)
 		{
 			var startActive = timeList [i] == 0;
 			timers[i].SetCoverActive(startActive);

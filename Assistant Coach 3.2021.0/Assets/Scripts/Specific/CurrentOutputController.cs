@@ -29,7 +29,7 @@ public class CurrentOutputController : BaseOutputSessionManager
 
 	public void CreateTrainingSession(List<CurriculumItem> topics)
 	{
-		if (topics.Count != timeline.GetBlocks())
+		if (topics.Count != timeline.SelectionCount())
 		{
 			Instantiate(messageWindow).ShowMessage(MSG_SESSION_NOT_FULL);
 			return;
