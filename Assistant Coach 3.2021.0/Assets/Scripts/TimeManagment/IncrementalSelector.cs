@@ -19,28 +19,28 @@ namespace AssistantCoach.UI
 
 		public int Value { get; private set; }
 
-
-		void Start ()
+		private void Start()
 		{
 			SetValue(InitialValue);
 		}
 
-		public void SetValue (int value)
+		public void SetValue(int value)
 		{
 			value = Mathf.Clamp(value, MinValue, MaxValue);
 
-			if( Value != value ) {
+			if (Value != value)
+			{
 				Value = value;
 				OnValueChanged?.Invoke(Value);
 			}
 		}
 
-		public void IncrementValue ()
+		public void IncrementValue()
 		{
 			SetValue(Value + Increment);
 		}
 
-		public void DecrementValue ()
+		public void DecrementValue()
 		{
 			SetValue(Value - Increment);
 		}

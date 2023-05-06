@@ -3,8 +3,8 @@
 	public interface IIncrementalSelector : IUpdatableValue
 	{
 		int Value { get; }
-		void DecrementValue ();
-		void IncrementValue ();
-		void SetValue (int value);
+		void DecrementValue();
+		void IncrementValue();
+		void SetValue(int value);
 	}
 }

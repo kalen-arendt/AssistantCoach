@@ -6,17 +6,17 @@ namespace AssistantCoach.UI
 {
 	public class TimelineVisualizerManager : MonoBehaviour
 	{
-		[SerializeField] Transform timelineParent = null;
+		[SerializeField] private Transform timelineParent = null;
+		private IIncrementalSelector[] timelineSelectors;
+		private ITimelineVisualizer[] timelineVisualizers;
 
-		IIncrementalSelector[] timelineSelectors;
-		ITimelineVisualizer[] timelineVisualizers;
-
-		void Awake()
+		private void Awake()
 		{
 			timelineSelectors = timelineParent.GetComponentsInChildren<IIncrementalSelector>();
 			timelineVisualizers = timelineParent.GetComponentsInChildren<ITimelineVisualizer>();
 
-			if (timelineSelectors.Length !=  timelineVisualizers.Length) {
+			if (timelineSelectors.Length != timelineVisualizers.Length)
+			{
 				Debug.LogError(
 					$"There are {timelineSelectors.Length} timeline selectors" +
 					$"and {timelineVisualizers.Length} timeline visualizers." +
@@ -27,24 +27,26 @@ namespace AssistantCoach.UI
 			}
 		}
 
-		void OnEnable ()
+		private void OnEnable()
 		{
-			foreach( IIncrementalSelector selector in timelineSelectors ) {
+			foreach (IIncrementalSelector selector in timelineSelectors)
+			{
 				selector.OnValueChanged += TimeSelector_OnValueChanged;
 			}
 		}
 
-		private void TimeSelector_OnValueChanged (int time)
+		private void TimeSelector_OnValueChanged(int time)
 		{
-			int totalTime = timelineSelectors
+			var totalTime = timelineSelectors
 									.Select((item, index) => item.Value)
 									.Aggregate((total, next) => total += next);
 
-			int sumValue = 0;
+			var sumValue = 0;
 			float sumFraction = 0;
 
-			for( int i = 0; i < timelineSelectors.Length; i++ ) {
-				float start = sumFraction;
+			for (var i = 0; i < timelineSelectors.Length; i++)
+			{
+				var start = sumFraction;
 				sumValue += timelineSelectors[i].Value;
 				sumFraction = sumValue / (float)totalTime;
 

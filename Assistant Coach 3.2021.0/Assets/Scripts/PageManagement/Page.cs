@@ -10,14 +10,14 @@ namespace AssistantCoach
 		private const int CLOSED_PAGE_SORT_ORDER = 0;
 
 		private Canvas myCanvas;
-		
+
 		public event Action<Page> OnSubmit;
 		public event Action<Page> OnPageInitialized;
 		public event Action <Page> OnPageOpened;
 		public event Action <Page> OnPageClosed;
 
 
-		void IPage.Initialize ()
+		void IPage.Initialize()
 		{
 			myCanvas = GetComponent<Canvas>();
 			myCanvas.sortingOrder = CLOSED_PAGE_SORT_ORDER;
@@ -44,14 +44,14 @@ namespace AssistantCoach
 		//}
 
 
-		public void Open ()
+		public void Open()
 		{
 			myCanvas.sortingOrder = OPEN_PAGE_SORT_ORDER;
 			gameObject.SetActive(true);
 			OnPageOpened?.Invoke(this);
 		}
 
-		public void Close ()
+		public void Close()
 		{
 			myCanvas.sortingOrder = CLOSED_PAGE_SORT_ORDER;
 			gameObject.SetActive(false);

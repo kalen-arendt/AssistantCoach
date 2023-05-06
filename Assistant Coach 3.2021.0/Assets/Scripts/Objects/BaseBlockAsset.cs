@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 
 public abstract class BaseBlockAsset : ScriptableObject
@@ -20,15 +21,22 @@ public abstract class BaseBlockAsset : ScriptableObject
 
 	//Abstract Properties
 
-	public abstract BlockOutputData blockStruct {get;}
+	public abstract BlockOutputData blockStruct { get; }
 
 
 
 	//Methods
 
-	void OnEnable ()
+	private void OnEnable()
 	{
-		if (maxAge < 10) maxAge = 10;
-		if (minAge < 9) minAge = 9;
+		if (maxAge < 10)
+		{
+			maxAge = 10;
+		}
+
+		if (minAge < 9)
+		{
+			minAge = 9;
+		}
 	}
 }

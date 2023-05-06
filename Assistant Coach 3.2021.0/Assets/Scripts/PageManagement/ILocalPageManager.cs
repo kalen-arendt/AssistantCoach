@@ -2,8 +2,8 @@
 {
 	public interface ILocalPageManager
 	{
-		void PageNext ();
-		void PagePrevious ();
-		void SwitchToPage (int index);
+		void PageNext();
+		void PagePrevious();
+		void SwitchToPage(int index);
 	}
 }

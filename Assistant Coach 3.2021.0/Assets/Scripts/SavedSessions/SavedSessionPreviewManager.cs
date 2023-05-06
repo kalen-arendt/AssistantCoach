@@ -1,64 +1,62 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SavedSessionPreviewManager : MonoBehaviour
 {
-	[SerializeField] Transform parent = null;
-	[SerializeField] GameObject Template = null;
+	[SerializeField] private Transform parent = null;
+	[SerializeField] private GameObject Template = null;
 
-	[SerializeField] GameObject confirmationWindow = null;
-	[SerializeField] Message messageWindow = null;
+	[SerializeField] private GameObject confirmationWindow = null;
+	[SerializeField] private Message messageWindow = null;
+	private List<SavedSessionPreview> SavedSessionArray { get; } = new();
+	private const string MSG_CONFIRM_CAN_DELTE = "Permanetly Delete All Sessions?";
+	private const string MSG_DELETION_COMPLETED = "Sessions have been deleted";
 
-
-	List<SavedSessionPreview> savedSessionArray = new List<SavedSessionPreview> ();
-	const string MSG_CONFIRM_CAN_DELTE = "Permanetly Delete All Sessions?";
-	const string MSG_DELETION_COMPLETED = "Sessions have been deleted";
-
-
-	void OnEnable ()
+	private void OnEnable()
 	{
-		UpdateSavedSessions ();
+		UpdateSavedSessions();
 	}
 
-	public void UpdateSavedSessions ()
+	public void UpdateSavedSessions()
 	{
 		SessionData[] dataArray = PlayerPrefsManager.SavedSessions.GetSessionDescriptions ();
 
-		while (dataArray.Length < savedSessionArray.Count)
+		while (dataArray.Length < SavedSessionArray.Count)
 		{
-			var v = savedSessionArray [savedSessionArray.Count - 1];
-			savedSessionArray.RemoveAt (savedSessionArray.Count - 1);
-			Destroy (v.gameObject);
+			SavedSessionPreview v = SavedSessionArray [^1];
+			SavedSessionArray.RemoveAt(SavedSessionArray.Count - 1);
+			Destroy(v.gameObject);
 		}
 
-		for (int i = 0;i < dataArray.Length; i++)
+		for (var i = 0; i < dataArray.Length; i++)
 		{
-			if (i >= savedSessionArray.Count)
+			if (i >= SavedSessionArray.Count)
 			{
-				savedSessionArray.Add(Instantiate (Template, parent).GetComponent<SavedSessionPreview> ());
+				SavedSessionArray.Add(Instantiate(Template, parent).GetComponent<SavedSessionPreview>());
 			}
 
-			var previewObj = savedSessionArray [i];
-			previewObj.SessionData = dataArray [i];
-			previewObj.UpdateObject ();
+			SavedSessionPreview previewObj = SavedSessionArray [i];
+			previewObj.SessionData = dataArray[i];
+			previewObj.UpdateObject();
 		}
 	}
 
-	public void DeleteButton ()
+	public void DeleteButton()
 	{
-		var msg_window = (Instantiate (confirmationWindow)).GetComponent<UserConfirmation>();
-		msg_window.SetButtons (DeleteAllSessions, MSG_CONFIRM_CAN_DELTE);
+		UserConfirmation msg_window = Instantiate (confirmationWindow).GetComponent<UserConfirmation>();
+		msg_window.SetButtons(DeleteAllSessions, MSG_CONFIRM_CAN_DELTE);
 	}
 
-	void DeleteAllSessions ()
+	private void DeleteAllSessions()
 	{
-		foreach (SessionData session in PlayerPrefsManager.SavedSessions.GetSessionDescriptions ()) {
-			PlayerPrefsManager.SavedSessions.RemoveSession (session.index);
+		foreach (SessionData session in PlayerPrefsManager.SavedSessions.GetSessionDescriptions())
+		{
+			PlayerPrefsManager.SavedSessions.RemoveSession(session.index);
 		}
 
-		UpdateSavedSessions ();
+		UpdateSavedSessions();
 
-		Instantiate (messageWindow).ShowMessage (MSG_DELETION_COMPLETED);
+		Instantiate(messageWindow).ShowMessage(MSG_DELETION_COMPLETED);
 	}
 }

@@ -1,25 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
-[RequireComponent (typeof (GraphicRaycaster))]
+[RequireComponent(typeof(GraphicRaycaster))]
 public class UserConfirmation : MonoBehaviour
 {
-	[SerializeField] Text Summary = null;
-	[SerializeField] Button confirm = null;
-	[SerializeField] Button reject = null;
+	[SerializeField] private Text Summary = null;
+	[SerializeField] private Button confirm = null;
+	[SerializeField] private Button reject = null;
 
-	void OnEnable ()
+	private void OnEnable()
 	{
-		confirm.onClick.AddListener (() => Destroy(gameObject));
-		reject.onClick.AddListener (() => Destroy(gameObject));
+		confirm.onClick.AddListener(() => Destroy(gameObject));
+		reject.onClick.AddListener(() => Destroy(gameObject));
 	}
 
-	public void SetButtons (UnityAction onConfirmationFunction, string summary)
+	public void SetButtons(UnityAction onConfirmationFunction, string summary)
 	{
-		confirm.onClick.AddListener (onConfirmationFunction);
+		confirm.onClick.AddListener(onConfirmationFunction);
 		Summary.text = summary;
 	}
 }

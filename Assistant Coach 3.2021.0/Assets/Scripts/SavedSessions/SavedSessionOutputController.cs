@@ -1,50 +1,49 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public class SavedSessionOutputController : BaseOutputSessionManager
 {
-	public void ShowSavedSession (int index)
+	public void ShowSavedSession(int index)
 	{
 		SaveObject session = PlayerPrefsManager.SavedSessions.GetSavedSession (index);
-		SubjectData[] subjects = session.subjectDataArray;
+		SubjectData[] subjects = session.SubjectDataArray;
 
-		ShowSessionData (session.date, session.GetTopicSummary(), session.GetAge(), session.totalTime);
+		ShowSessionData(session.Date, session.GetTopicSummary(), session.GetAge(), session.TotalTime);
 
-		RemoveExcessTemplates (subjects.Length);
+		RemoveExcessTemplates(subjects.Length);
 
 		//Instantiates necessary Prefabs
-		for (int subject_index = 0; subject_index < subjects.Length; subject_index++)
+		for (var subject_index = 0; subject_index < subjects.Length; subject_index++)
 		{
 			if (subject_index >= outputs.Count)
 			{
 				GameObject obj = Instantiate (template, parent);
-				outputs.Add(obj.GetComponent<BaseDrillDisplay> ());
+				outputs.Add(obj.GetComponent<BaseDrillDisplay>());
 			}
 
-			var subject = subjects [subject_index];
+			SubjectData subject = subjects [subject_index];
 
-			outputs [subject_index].ShowDrillBaseRootIndex (
-				sessionDataBase.Sessions [subject.dataBaseIndex].blockStruct,
+			outputs[subject_index].ShowDrillBaseRootIndex(
+				sessionDataBase.Sessions[subject.dataBaseIndex].blockStruct,
 				subject_index,
 				subject.time,
 				subject.subject
 			);
 		}
 
-		SetAllLayouts ();
+		SetAllLayouts();
 
 		Canvas myCanvas = GetComponent<Canvas> ();
-		appController.CallPreviousA (myCanvas);
+		appController.CallPreviousA(myCanvas);
 	}
 
-	void RemoveExcessTemplates (int templatesRequired)
+	private void RemoveExcessTemplates(int templatesRequired)
 	{
 		while (outputs.Count > templatesRequired)
 		{
 			var lastIndex = outputs.Count - 1;
-			Destroy (outputs [lastIndex].gameObject);
-			outputs.RemoveAt (lastIndex);
+			Destroy(outputs[lastIndex].gameObject);
+			outputs.RemoveAt(lastIndex);
 		}
 	}
 }

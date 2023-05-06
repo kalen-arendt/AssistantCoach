@@ -1,26 +1,25 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-//using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-[RequireComponent (typeof (Image))]
+[RequireComponent(typeof(Image))]
 public class IconButton : UIBehaviour, IPointerClickHandler
 {
-	[SerializeField] Color color = Color.white;
-	[SerializeField] BlockTopic topic = BlockTopic.PL;
+	[SerializeField] private Color color = Color.white;
+	[SerializeField] private BlockTopic topic = BlockTopic.PL;
 
-	CurriculumItem CurriculumItem => new(topic, color);
+	private CurriculumItem CurriculumItem => new(topic, color);
 
 	//Interfaces
 
-	public void OnPointerClick (PointerEventData data)
+	public void OnPointerClick(PointerEventData data)
 	{
 		SelectTopic();
 	}
 
 	public void SelectTopic()
 	{
-		var curriculum = FindObjectOfType<CurriculumSelection>();
+		CurriculumSelection curriculum = FindObjectOfType<CurriculumSelection>();
 		if (curriculum != null)
 		{
 			curriculum.AddEvent(CurriculumItem);

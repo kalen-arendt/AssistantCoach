@@ -1,104 +1,104 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BaseDrillDisplay : MonoBehaviour
 {
-	[SerializeField] Image diagram = null;
-	[SerializeField] Text description = null;
-	[SerializeField] GameObject	SubLayoutController = null;
+	[SerializeField] private Image diagram = null;
+	[SerializeField] private Text description = null;
+	[SerializeField] private GameObject SubLayoutController = null;
 
-	[SerializeField] Text block = null;
-	[SerializeField] Text topic = null;
-	[SerializeField] Text time = null;
+	[SerializeField] private Text block = null;
+	[SerializeField] private Text topic = null;
+	[SerializeField] private Text time = null;
 
-	[SerializeField] Slider fontSizeSlider = null;
-	[SerializeField] int startingFontSize = 25;
+	[SerializeField] private Slider fontSizeSlider = null;
+	[SerializeField] private int startingFontSize = 25;
 
-	ContentSizeFitter contentSizeFitter;
-	Canvas parentCanvas;
-//	ApplicationController app;
+	//private ContentSizeFitter contentSizeFitter;
+	//private Canvas parentCanvas;
+	//	ApplicationController app;
 
 
-	protected BlockTopic subject {get; set;}
+	protected BlockTopic Subject { get; set; }
 
-	int fontSize;
-
-	const int ROOT_FONT_SIZE = 45;
-	const int SPACING = 2;
+	private int fontSize;
+	// UNUSED
+	//private const int ROOT_FONT_SIZE = 45;
+	private const int SPACING = 2;
 
 
 	public bool Portrait { get; set; }
 
-
-	void OnEnable ()
+	private void OnEnable()
 	{
 		fontSize = startingFontSize;
 		fontSizeSlider.value = fontSize;
-//		fontSizeSlider.onValueChanged += ChangeTextSize(fontSizeSlider.value);
+		//		fontSizeSlider.onValueChanged += ChangeTextSize(fontSizeSlider.value);
 
-//		app = FindObjectOfType<ApplicationController> ();
+		//		app = FindObjectOfType<ApplicationController> ();
 		//parentCanvas = GetComponentInParent<Canvas> ();
 	}
 
 
 	// TODO fix whatever this is...
-//	int c = 21;
-//	int t = 20;
-//	void LateUpdate ()
-//	{
-//		c++;
-//
-//		if (c > t)
-//		{
-//			if (app.CurrentCanvas != parentCanvas)
-//			{
-//				t = 50;
-//			}
-//			else
-//			{
-//				ResizeAllElementsForBestFit ();
-//				t = 20;
-//			}
-//
-//			c = 0;
-//		}
-//	}
+	//	int c = 21;
+	//	int t = 20;
+	//	void LateUpdate ()
+	//	{
+	//		c++;
+	//
+	//		if (c > t)
+	//		{
+	//			if (app.CurrentCanvas != parentCanvas)
+	//			{
+	//				t = 50;
+	//			}
+	//			else
+	//			{
+	//				ResizeAllElementsForBestFit ();
+	//				t = 20;
+	//			}
+	//
+	//			c = 0;
+	//		}
+	//	}
 
-	public void ShowDrillBaseRootIndex (BlockOutputData _block, int index, int _time, BlockTopic subject)
+	public void ShowDrillBaseRootIndex(BlockOutputData _block, int index, int _time, BlockTopic subject)
 	{
 		diagram.sprite = _block.mySprite;
 		time.text = _time + "min";
 		block.text = "Block " + (index + 1);
-		topic.text = CurriculumSelection.SubjectAsString(subject);
+		topic.text = subject.AsString();
 
-		ResizeImageToMaxSize (diagram);
+		ResizeImageToMaxSize(diagram);
 
-		description.text = _block.descriptionText.Trim () + "\n";
+		description.text = _block.descriptionText.Trim() + "\n";
 		description.fontSize = fontSize;
 	}
 
 
-	public void ToggleLayoutType ()
+	public void ToggleLayoutType()
 	{
-		StopAllCoroutines ();
-		StartCoroutine (pToggleLayoutType ());
+		StopAllCoroutines();
+		StartCoroutine(EnumerateToggleLayoutType());
 	}
 
-
-	IEnumerator pToggleLayoutType ()
+	private IEnumerator EnumerateToggleLayoutType()
 	{
 		//Portrait(stacked) => Horizontal (side-by-side)
 		if (Portrait)
 		{
 			Portrait = !Portrait;
-			var prev = SubLayoutController.GetComponent<VerticalLayoutGroup> ();
-			if (prev != null) Destroy (prev);
+			if (SubLayoutController.TryGetComponent<VerticalLayoutGroup>(out var prev))
+			{
+				Destroy(prev);
+			}
 
-			yield return new WaitForEndOfFrame ();
+			yield return new WaitForEndOfFrame();
 
-			var nLayout = SubLayoutController.AddComponent<HorizontalLayoutGroup> ();
+			HorizontalLayoutGroup nLayout = SubLayoutController.AddComponent<HorizontalLayoutGroup> ();
 
 			nLayout.spacing = SPACING;
 			nLayout.padding.left = SPACING;
@@ -112,12 +112,14 @@ public class BaseDrillDisplay : MonoBehaviour
 		{
 			Portrait = !Portrait;
 
-			var prev = SubLayoutController.GetComponent<HorizontalLayoutGroup> ();
-			if (prev != null) Destroy (prev);
+			if (SubLayoutController.TryGetComponent<HorizontalLayoutGroup>(out var prev))
+			{
+				Destroy(prev);
+			}
 
-			yield return new WaitForEndOfFrame ();
+			yield return new WaitForEndOfFrame();
 
-			var nLayout = SubLayoutController.AddComponent<VerticalLayoutGroup> ();
+			VerticalLayoutGroup nLayout = SubLayoutController.AddComponent<VerticalLayoutGroup> ();
 
 			nLayout.spacing = SPACING;
 			nLayout.padding.top = SPACING;
@@ -128,10 +130,10 @@ public class BaseDrillDisplay : MonoBehaviour
 		}
 
 
-		ResizeAllElementsForBestFit ();
-		SubLayoutController.GetComponent<HorizontalOrVerticalLayoutGroup>().SetLayoutVertical ();
-		this.GetComponent<HorizontalOrVerticalLayoutGroup>().CalculateLayoutInputVertical ();
-		this.GetComponent<HorizontalOrVerticalLayoutGroup>().SetLayoutVertical ();
+		ResizeAllElementsForBestFit();
+		SubLayoutController.GetComponent<HorizontalOrVerticalLayoutGroup>().SetLayoutVertical();
+		GetComponent<HorizontalOrVerticalLayoutGroup>().CalculateLayoutInputVertical();
+		GetComponent<HorizontalOrVerticalLayoutGroup>().SetLayoutVertical();
 
 
 		yield return null;
@@ -139,70 +141,75 @@ public class BaseDrillDisplay : MonoBehaviour
 
 
 
-//	void ToggleDrillType (BlockStruct.Description_Type _type)
-//	{
-//		if (_type == type) return;
-//
-//		if (_type == BlockStruct.Description_Type.graphic)
-//		{
-//			DestroyImmediate (description.GetComponent<Text>());
-//			image = description.AddComponent<Image>();
-//			description.GetComponent<ChildContentFitter> ().verticalFit = ContentSizeFitter.FitMode.Unconstrained;
-//		}
-//		else 
-//		{
-//			DestroyImmediate (description.GetComponent<Image>());
-//			text = description.AddComponent<Text>();
-//			description.GetComponent<ChildContentFitter> ().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-//
-//			text.color = Color.black;
-//			text.font = ApplicationController.instance.DescriptionFont;
-//			text.fontSize = fontSize;
-//		}
-//
-//		type = _type;
-//	}
+	//	void ToggleDrillType (BlockStruct.Description_Type _type)
+	//	{
+	//		if (_type == type) return;
+	//
+	//		if (_type == BlockStruct.Description_Type.graphic)
+	//		{
+	//			DestroyImmediate (description.GetComponent<Text>());
+	//			image = description.AddComponent<Image>();
+	//			description.GetComponent<ChildContentFitter> ().verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+	//		}
+	//		else 
+	//		{
+	//			DestroyImmediate (description.GetComponent<Image>());
+	//			text = description.AddComponent<Text>();
+	//			description.GetComponent<ChildContentFitter> ().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+	//
+	//			text.color = Color.black;
+	//			text.font = ApplicationController.instance.DescriptionFont;
+	//			text.fontSize = fontSize;
+	//		}
+	//
+	//		type = _type;
+	//	}
 
 
 
-	public void ResizeAllElementsForBestFit ()
+	public void ResizeAllElementsForBestFit()
 	{
-		ResizeImageToMaxSize (diagram);
+		ResizeImageToMaxSize(diagram);
 
-		var descriptImage = description.GetComponent<Image> ();
-
-		if (descriptImage != null)
-			ResizeImageToMaxSize (descriptImage);
+		if (description.TryGetComponent<Image>(out var descriptImage))
+		{
+			ResizeImageToMaxSize(descriptImage);
+		}
 	}
 
-
-	void ResizeImageToMaxSize (Image _image)
+	private void ResizeImageToMaxSize(Image image)
 	{
-		if (_image.sprite == null) return;
-		_image.preserveAspect = true;
+		if (image.sprite == null)
+		{
+			return;
+		}
 
-		Canvas.ForceUpdateCanvases ();
+		image.preserveAspect = true;
 
-		RectTransform rt = _image.GetComponent<RectTransform> ();
+		Canvas.ForceUpdateCanvases();
 
-		float width = rt.rect.size.x;
-		float newHeight =  width * (float)_image.sprite.texture.height / (float)_image.sprite.texture.width;
+		RectTransform rt = image.GetComponent<RectTransform> ();
 
-		Vector2 nV2 = new Vector2 (0, newHeight);
+		var width = rt.rect.size.x;
+		var newHeight =  width * image.sprite.texture.height / image.sprite.texture.width;
+
+		var nV2 = new Vector2 (0, newHeight);
 
 		if (nV2 != rt.sizeDelta)
-			rt.sizeDelta = new Vector2 (0, newHeight);
+		{
+			rt.sizeDelta = new Vector2(0, newHeight);
+		}
 	}
 
 
-	public void ToggleObjectActive (GameObject obj)
+	public void ToggleObjectActive(GameObject obj)
 	{
-		bool active = obj.activeSelf == false;
-		obj.SetActive (active);
+		var active = obj.activeSelf == false;
+		obj.SetActive(active);
 	}
 
 
-	public void ChangeTextSize (float value)
+	public void ChangeTextSize(float value)
 	{
 		fontSize = (int)value;
 		description.fontSize = fontSize;

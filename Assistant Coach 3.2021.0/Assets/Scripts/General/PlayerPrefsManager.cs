@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 
 public static class PlayerPrefsManager
@@ -28,12 +29,12 @@ public static class PlayerPrefsManager
 			var session_path = SESSION + sessionIndex;
 
 			PlayerPrefs.SetInt(session_path + EXISTS, 1);
-			PlayerPrefs.SetInt(session_path + AGE, saveStruct.age);
-			PlayerPrefs.SetInt(session_path + TIME, saveStruct.totalTime);
+			PlayerPrefs.SetInt(session_path + AGE, saveStruct.Age);
+			PlayerPrefs.SetInt(session_path + TIME, saveStruct.TotalTime);
 			PlayerPrefs.SetString(session_path + SUMMARY, saveStruct.GetTopicSummary());
-			SetDate(saveStruct.date, sessionIndex);
+			SetDate(saveStruct.Date, sessionIndex);
 
-			SubjectData[] subjectData = saveStruct.subjectDataArray;
+			SubjectData[] subjectData = saveStruct.SubjectDataArray;
 
 			var s_index = 0;
 			foreach (SubjectData subject in subjectData)

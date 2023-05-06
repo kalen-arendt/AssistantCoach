@@ -6,8 +6,7 @@ namespace AssistantCoach.UI
 	{
 		public RectTransform FillRect { get; private set; }
 
-
-		void Awake ()
+		private void Awake()
 		{
 			FillRect = GetComponent<RectTransform>();
 		}

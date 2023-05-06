@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -8,35 +6,36 @@ namespace AssistantCoach
 {
 	public class LocalPageManager : MonoBehaviour, ILocalPageManager
 	{
-		[SerializeField] List<Page> pageList;
+		[SerializeField] private List<Page> pageList;
 
 		private IPage currentPage = null;
 		private int currentPageIndex = 0;
 
 		private static ILocalPageManager Instance { get; set; }
 
-
-		void Awake ()
+		private void Awake()
 		{
-			if (pageList.Count == 0) {
+			if (pageList.Count == 0)
+			{
 				Debug.LogWarning(
 					$"{nameof(LocalPageManager)} {nameof(pageList)} is empty." +
 					$"{nameof(LocalPageManager)} will now be destroyed."
 				);
 				Destroy(this);
 			}
-			else {
+			else
+			{
 				Instance = this;
 				PageManagerSingleton.CurrentPageManager = this;
 			}
 		}
 
-		void OnDestroy()
+		private void OnDestroy()
 		{
 			PageManagerSingleton.CurrentPageManager = null;
 		}
 
-		void Start ()
+		private void Start()
 		{
 			InitializePages();
 			//Instance.SwitchToPage(0);
@@ -44,7 +43,8 @@ namespace AssistantCoach
 
 		public void InitializePages()
 		{
-			foreach( IPage p in pageList ) {
+			foreach (IPage p in pageList)
+			{
 				p.Initialize();
 			}
 
@@ -57,30 +57,34 @@ namespace AssistantCoach
 		}
 
 
-		void ILocalPageManager.PageNext ()
+		void ILocalPageManager.PageNext()
 		{
-			try {
+			try
+			{
 				//((IPageManager)this).SwitchToPage(pageList[++currentPageIndex]);
 				((ILocalPageManager)this).SwitchToPage(currentPageIndex + 1);
 			}
-			catch {
+			catch
+			{
 				//currentPageIndex--;
 				Debug.LogWarning($"Page at index {currentPageIndex} has no next Page.", this);
 			}
 		}
 
-		void ILocalPageManager.PagePrevious ()
+		void ILocalPageManager.PagePrevious()
 		{
-			try {
+			try
+			{
 				((ILocalPageManager)this).SwitchToPage(currentPageIndex - 1);
 			}
-			catch {
+			catch
+			{
 				//currentPageIndex++;
 				Debug.LogWarning($"Page at index {currentPageIndex} has no previous Page.", this);
 			}
 		}
 
-		void ILocalPageManager.SwitchToPage (int index)
+		void ILocalPageManager.SwitchToPage(int index)
 		{
 			IPage page = pageList[index];
 

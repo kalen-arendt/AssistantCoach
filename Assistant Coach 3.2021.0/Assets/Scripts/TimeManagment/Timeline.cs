@@ -1,25 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Timeline : MonoBehaviour 
+public class Timeline : MonoBehaviour
 {
-	[SerializeField] List<TimeSelect> timers = new List<TimeSelect> ();
-	[SerializeField] Text totalTime = null;
-	[SerializeField] Text sessionLength = null;
+	[SerializeField] private List<TimeSelect> timers = new();
+	[SerializeField] private Text totalTime = null;
+	[SerializeField] private Text sessionLength = null;
+	private CurriculumSelection curriculum;
+	private const int MAX_BLOCKS = 4;
 
-	CurriculumSelection curriculum;
-
-	const int MAX_BLOCKS = 4;
-
-	public static List<int> timeList = new List<int> (4) {0,0,0,0};
+	public static List<int> timeList = new(4) {0,0,0,0};
 
 	public static int GetTotalTime()
 	{
-		int total = 0;
-		foreach (int t in timeList)
+		var total = 0;
+		foreach (var t in timeList)
 		{
 			total += t;
 		}
@@ -28,8 +26,8 @@ public class Timeline : MonoBehaviour
 	}
 	public int GetBlocks()
 	{
-		int i = 0;
-		foreach (int time in timeList)
+		var i = 0;
+		foreach (var time in timeList)
 		{
 			if (time > 0)
 			{
@@ -40,41 +38,42 @@ public class Timeline : MonoBehaviour
 		return i;
 	}
 
-	void Awake ()
+	private void Awake()
 	{
-		for (int i = 0; i < timers.Count; i++) {
-			timers [i].Index = i;
+		for (var i = 0; i < timers.Count; i++)
+		{
+			timers[i].Index = i;
 		}
 	}
 
-	void Start ()
+	private void Start()
 	{
 		curriculum = FindObjectOfType<CurriculumSelection>();
-		GetSavedTimes ();
+		GetSavedTimes();
 		UpdateTimers();
 
 		TimeSelect.onTimeChanged += OnTimeChanged;
 	}
 
-	void OnTimeChanged (int timerIndex, int time)
+	private void OnTimeChanged(int timerIndex, int time)
 	{
-		timeList [timerIndex] = time;
-		UpdateTimers ();
+		timeList[timerIndex] = time;
+		UpdateTimers();
 	}
 
-	void UpdateTimers ()
+	private void UpdateTimers()
 	{
 		float min_anchor = 0;
 		float max_anchor = 0;
 
-		for (int i = 0; i < timers.Count; i++, min_anchor = max_anchor)
+		for (var i = 0; i < timers.Count; i++, min_anchor = max_anchor)
 		{
-			var timer = timers[i];
+			TimeSelect timer = timers[i];
 			var time = timeList[i];
 
-			if (timeList [i] != 0)
+			if (timeList[i] != 0)
 			{
-				max_anchor += (float)timeList [i] / (float)GetTotalTime();
+				max_anchor += timeList[i] / (float)GetTotalTime();
 			}
 			else if (GetTotalTime() == 0)
 			{
@@ -86,28 +85,28 @@ public class Timeline : MonoBehaviour
 			timer.ResizeToPercentage(min_anchor, max_anchor);
 		}
 
-		totalTime.text = GetTotalTime().ToString ();
-		sessionLength.text = GetBlocks().ToString ();
-		curriculum.SetBlockLimit (GetBlocks());
+		totalTime.text = GetTotalTime().ToString();
+		sessionLength.text = GetBlocks().ToString();
+		curriculum.SetBlockLimit(GetBlocks());
 	}
 
-	void GetSavedTimes ()
+	private void GetSavedTimes()
 	{
 		timeList = PlayerPrefsManager.Settings.Timeline;
 
-		for (int i = 0; i < 4; i++)
+		for (var i = 0; i < 4; i++)
 		{
-			bool startActive = timeList [i] == 0;
-			timers[i].SetCoverActive (startActive);
+			var startActive = timeList [i] == 0;
+			timers[i].SetCoverActive(startActive);
 
 			if (startActive)
 			{
-				timers[i].SetTime (timeList [i]);
+				timers[i].SetTime(timeList[i]);
 			}
 		}
 	}
 
-	public void SetSavedTimes ()
+	public void SetSavedTimes()
 	{
 		PlayerPrefsManager.Settings.Timeline = timeList;
 	}

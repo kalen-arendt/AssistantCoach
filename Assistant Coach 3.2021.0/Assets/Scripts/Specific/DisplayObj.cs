@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DisplayObj : MonoBehaviour {
-
-
-	public void RemoveBlock ()
+public class DisplayObj : MonoBehaviour
+{
+	public void RemoveBlock()
 	{
-		FindObjectOfType<CurriculumSelection> ().RemoveBlock (gameObject);
-		Destroy (gameObject);
+		FindObjectOfType<CurriculumSelection>().RemoveBlock(gameObject);
+		Destroy(gameObject);
 	}
-
 }

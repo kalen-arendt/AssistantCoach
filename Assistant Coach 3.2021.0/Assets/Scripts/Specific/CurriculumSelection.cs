@@ -6,76 +6,63 @@ using UnityEngine.UI;
 
 public class CurriculumSelection : MonoBehaviour
 {
-	[SerializeField] Transform parent = null;
-	[SerializeField] GameObject summaryTemplate = null;
-	[SerializeField] CurrentOutputController outputController = null;
+	[SerializeField] private Transform parent = null;
+	[SerializeField] private GameObject summaryTemplate = null;
+	[SerializeField] private CurrentOutputController outputController = null;
 
-	readonly List<GameObject> summaryObjList = new();
-	readonly List<CurriculumItem> currentPracticeStructure = new();
+	private List<CurriculumItem> CurrentPracticeStructure { get; } = new();
+	private List<GameObject> SummaryObjList { get; } = new();
 
 	public string GetSummary()
 	{
-		return string.Join("-", currentPracticeStructure.Select(x => SubjectAsString(x.topic)));
+		return CurrentPracticeStructure.Select(x => x.topic).Summarize();
 	}
 
 
-	public void AddEvent (CurriculumItem item)
+	public void AddEvent(CurriculumItem item)
 	{
-		var timeline = FindObjectOfType<Timeline>();
+		Timeline timeline = FindObjectOfType<Timeline>();
 
-		if (currentPracticeStructure.Count >= timeline.CheckNull()?.GetBlocks())
+		if (CurrentPracticeStructure.Count >= timeline.CheckNull()?.GetBlocks())
 		{
 			return;
 		}
 
-		currentPracticeStructure.Add (item);
+		CurrentPracticeStructure.Add(item);
 
 		GameObject obj = Instantiate (summaryTemplate, parent);
-		summaryObjList.Add (obj);
+		SummaryObjList.Add(obj);
 
 		Text text = obj.GetComponentInChildren<Text> ();
 		text.color = item.color;
-		text.text = SubjectAsString(item.topic);
+		text.text = item.topic.AsString();
 	}
 
-	public void RemoveBlock (GameObject Obj)
+	public void RemoveBlock(GameObject Obj)
 	{
-		int index = summaryObjList.IndexOf (Obj);
+		var index = SummaryObjList.IndexOf (Obj);
 
-		if (index < currentPracticeStructure.Count)
+		if (index < CurrentPracticeStructure.Count)
 		{
-			currentPracticeStructure.RemoveAt (index);
+			CurrentPracticeStructure.RemoveAt(index);
 		}
 
-		if (index < summaryObjList.Count)
+		if (index < SummaryObjList.Count)
 		{
-			summaryObjList.RemoveAt (index);
-		}
-	}
-
-	public void SetBlockLimit (int max)
-	{
-		while (currentPracticeStructure.Count > max)
-		{
-			summaryObjList [^1].GetComponent<DisplayObj> ().RemoveBlock ();
+			SummaryObjList.RemoveAt(index);
 		}
 	}
 
-	public void CreateSession ()
+	public void SetBlockLimit(int max)
 	{
-		outputController.CreateTrainingSession (currentPracticeStructure);
+		while (CurrentPracticeStructure.Count > max)
+		{
+			SummaryObjList[^1].GetComponent<DisplayObj>().RemoveBlock();
+		}
 	}
 
-	public static string SubjectAsString (BlockTopic subject)
+	public void CreateSession()
 	{
-		return subject switch
-		{
-			BlockTopic.PR		=> "P+R",
-			BlockTopic.PwG		=> "Pw/G",
-			BlockTopic.PwT		=> "Pw/T",
-			BlockTopic.VA		=> "V+A",
-			BlockTopic._1v1D	=> "1v1D",
-			_					=> subject.ToString(),
-		};
+		outputController.CreateTrainingSession(CurrentPracticeStructure);
 	}
 }

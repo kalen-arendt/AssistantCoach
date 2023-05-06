@@ -3,27 +3,27 @@ using UnityEngine.UI;
 
 public class SavedSessionPreview : MonoBehaviour
 {
-	[SerializeField] Text summary = null;
-	[SerializeField] Text date = null;
+	[SerializeField] private Text summary = null;
+	[SerializeField] private Text date = null;
 
 
-	public SessionData SessionData {get; set;}
+	public SessionData SessionData { get; set; }
 
 
-	public void UpdateObject ()
+	public void UpdateObject()
 	{
 		summary.text = SessionData.summary;
-		date.text = SessionData.date.ShortDate ();
+		date.text = SessionData.date.ShortDate();
 	}
 
-	public void ShowSession ()
+	public void ShowSession()
 	{
-		FindObjectOfType<SavedSessionOutputController> ().ShowSavedSession (SessionData.index);
+		FindObjectOfType<SavedSessionOutputController>().ShowSavedSession(SessionData.index);
 	}
 
-	public void DeleteSession ()
+	public void DeleteSession()
 	{
-		PlayerPrefsManager.SavedSessions.RemoveSession (SessionData.index);
-		FindObjectOfType<SavedSessionPreviewManager> ().UpdateSavedSessions ();
+		PlayerPrefsManager.SavedSessions.RemoveSession(SessionData.index);
+		FindObjectOfType<SavedSessionPreviewManager>().UpdateSavedSessions();
 	}
 }

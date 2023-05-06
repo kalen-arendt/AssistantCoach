@@ -6,29 +6,27 @@ namespace AssistantCoach.UI
 	[RequireComponent(typeof(IUpdatableValue))]
 	public class ValueVisualizer : MonoBehaviour
 	{
-		[SerializeField] Text text = null;
+		[SerializeField] private Text text = null;
+		private IUpdatableValue updatableValue;
 
-
-		IUpdatableValue updatableValue;
-
-		void Awake()
+		private void Awake()
 		{
 			updatableValue = GetComponent<IUpdatableValue>();
 		}
 
-		void OnEnable()
+		private void OnEnable()
 		{
 			updatableValue.OnValueChanged += UpdatableValue_OnValueChanged;
 		}
 
-		void OnDisable()
+		private void OnDisable()
 		{
 			updatableValue.OnValueChanged -= UpdatableValue_OnValueChanged;
 		}
 
-		private void UpdatableValue_OnValueChanged (int value)
+		private void UpdatableValue_OnValueChanged(int value)
 		{
-			text.text = value.ToString ();
+			text.text = value.ToString();
 		}
 	}
 }

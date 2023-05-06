@@ -9,10 +9,10 @@ namespace AssistantCoach
 		event Action<Page> OnPageClosed;
 		event Action<Page> OnPageOpened;
 
-		void Initialize ();
-		void Close ();
+		void Initialize();
+		void Close();
 		//void CloseSilently ();
-		void Open ();
+		void Open();
 		//void OpenSilently ();
 	}
 }

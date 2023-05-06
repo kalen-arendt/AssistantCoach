@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu (menuName = "TrainingBlock/Detail Block", fileName = "DetailedBlock", order = 2)]
-public class DetailBlock : BaseBlockAsset {
+[CreateAssetMenu(menuName = "TrainingBlock/Detail Block", fileName = "DetailedBlock", order = 2)]
+public class DetailBlock : BaseBlockAsset
+{
 
 	//Fields
 
@@ -11,8 +12,5 @@ public class DetailBlock : BaseBlockAsset {
 
 	//Properties
 
-	public override BlockOutputData blockStruct
-	{
-		get {return new BlockOutputData (drillImage, description);}
-	}
+	public override BlockOutputData blockStruct => new(drillImage, description);
 }

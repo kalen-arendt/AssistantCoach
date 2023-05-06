@@ -1,38 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SelfDestruct : MonoBehaviour, IPointerClickHandler {
-
-
-	public float time;
-	public bool destroyOnClick;
+public class SelfDestruct : MonoBehaviour, IPointerClickHandler
+{
+	[SerializeField] private float time;
+	[SerializeField] private bool destroyOnClick;
 
 
 	// Use this for initialization
-	void Start ()
+	private void Start()
 	{
-		StartCoroutine (SelfDestroy ());
+		StartCoroutine(SelfDestroy());
 	}
 
 
-	private IEnumerator SelfDestroy ()
+	private IEnumerator SelfDestroy()
 	{
-		yield return new WaitForSecondsRealtime (time);
-		Destroy (gameObject);
+		yield return new WaitForSecondsRealtime(time);
+		Destroy(gameObject);
 	}
 
 
-	public void OnPointerClick (PointerEventData data)
+	public void OnPointerClick(PointerEventData data)
 	{
 		if (destroyOnClick)
 		{
-			StopAllCoroutines ();
-			Destroy (gameObject);
+			StopAllCoroutines();
+			Destroy(gameObject);
 		}
 	}
-
-
-
 }

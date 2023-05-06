@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,62 +9,58 @@ public class BaseOutputSessionManager : MonoBehaviour
 	[SerializeField] protected Transform parent = null;
 	[SerializeField] protected GameObject template = null;
 
-	[SerializeField] Text ageText = null;
-	[SerializeField] Text summary = null;
-	[SerializeField] Text date = null;
-	[SerializeField] Text time = null;
-	[SerializeField] Button layoutToggle = null;
+	[SerializeField] private Text ageText = null;
+	[SerializeField] private Text summary = null;
+	[SerializeField] private Text date = null;
+	[SerializeField] private Text time = null;
+	[SerializeField] private Button layoutToggle = null;
 
-	public SessionDataBase SessionDataBase { get { return sessionDataBase; } }
+	public SessionDataBase SessionDataBase => sessionDataBase;
 
 	protected ApplicationController appController;
-	protected List<BaseDrillDisplay> outputs = new List<BaseDrillDisplay> ();
+	protected List<BaseDrillDisplay> outputs = new();
+	private static bool portrait = false;
 
-
-	static bool portrait = false;
-
-
-	void OnEnable ()
+	private void OnEnable()
 	{
-		appController = FindObjectOfType<ApplicationController> ();
-		ToggleSprite ();
+		appController = FindObjectOfType<ApplicationController>();
+		ToggleSprite();
 	}
 
-	public void ShowSessionData (Date Date, string Summary, string Age, int Time)
+	public void ShowSessionData(Date Date, string Summary, string Age, int Time)
 	{
-		date.text = Date.LongDate ();
+		date.text = Date.LongDate();
 		summary.text = Summary;
 		ageText.text = Age;
 		time.text = Time + "min";
 	}
 
-	public void ToggleLayouts ()
+	public void ToggleLayouts()
 	{
 		portrait = !portrait;
 
-		foreach (var item in outputs)
+		foreach (BaseDrillDisplay item in outputs)
 		{
-			item.ToggleLayoutType ();
+			item.ToggleLayoutType();
 		}
 
-		ToggleSprite ();
+		ToggleSprite();
 	}
 
-
-	void ToggleSprite ()
+	private void ToggleSprite()
 	{
 		Vector3 angles = layoutToggle.transform.localEulerAngles;
 		angles.z = portrait ? 90 : 0;
 		layoutToggle.transform.localEulerAngles = angles;
 	}
 
-	protected void SetAllLayouts ()
+	protected void SetAllLayouts()
 	{
-		foreach (var item in outputs)
+		foreach (BaseDrillDisplay item in outputs)
 		{
 			if (item.Portrait != portrait)
 			{
-				item.ToggleLayoutType ();
+				item.ToggleLayoutType();
 			}
 		}
 	}

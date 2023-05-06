@@ -10,9 +10,8 @@ namespace Assets.Scripts.TimeManagment
 {
 	public class SessionTimelineManager : MonoBehaviour
 	{
-		[SerializeField] List<IncrementalTimeSelector> timeSelectors = new List<IncrementalTimeSelector>();
-
-		Page page = null;
+		[SerializeField] private List<IncrementalTimeSelector> timeSelectors = new();
+		private Page page = null;
 
 
 		private List<int> Times {
@@ -20,32 +19,31 @@ namespace Assets.Scripts.TimeManagment
 			set => timeSelectors.ForEach((item, index) => item.SetValue(value[index]));
 		}
 
-
-		void Awake()
+		private void Awake()
 		{
 			page = GetComponentInParent<Page>();
 			Debug.Log(page.gameObject.name);
 		}
 
-		void OnEnable()
+		private void OnEnable()
 		{
 			page.OnPageOpened += Page_OnPageOpened;
 			page.OnSubmit += Page_OnSubmit;
 		}
 
-		void OnDisable ()
+		private void OnDisable()
 		{
 			page.OnPageOpened -= Page_OnPageOpened;
 			page.OnSubmit -= Page_OnSubmit;
 		}
 
 
-		private void Page_OnPageOpened (Page obj)
+		private void Page_OnPageOpened(Page obj)
 		{
 			Times = PlayerPrefsManager.Settings.Timeline;
 		}
 
-		private void Page_OnSubmit (Page obj)
+		private void Page_OnSubmit(Page obj)
 		{
 			Debug.Log("Page_OnSubmit!");
 			PlayerPrefsManager.Settings.Timeline = Times;

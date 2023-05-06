@@ -1,111 +1,111 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class CurrentDrillDisplay : BaseDrillDisplay
 {
-	[SerializeField] SessionDataBase sessionDataBase = null;
+	[SerializeField] private SessionDataBase sessionDataBase = null;
 
-	int currentIndex = -1;
-	int drillDisplayIndex = 0;
-	int duration = 0;
+	private int CurrentIndex { get; set; } = -1;
+	private int DrillDisplayIndex { get; set; } = 0;
+	private int Duration { get; set; } = 0;
+	public List<int> Recents { get; } = new();
+	public List<BaseBlockAsset> PossibleDrills { get; set; } = null;
 
-	List<int> recents = new List<int> ();
-	List<BaseBlockAsset> possibleDrills = null;
+	public SubjectData GetSubjectData => new(GetIndexOfCurrent(), Duration, Subject);
 
-
-	public int GetIndexOfCurrent {
-		get {
-			if (possibleDrills[currentIndex] != null)
-			{
-				var index = sessionDataBase.Sessions.IndexOf(possibleDrills [currentIndex]);
-
-				for (int i = 0; i < sessionDataBase.Sessions.Count; i++)
-				{
-					if (sessionDataBase.Sessions [i] == possibleDrills [currentIndex])
-					{
-						Debug.LogFormat("index = {0}, i = {1}", index, i); 
-						return i;
-					}
-				}
-			}		
-			return -1;
-		}
-	}
-
-	public SubjectData GetSubjectData {
-		get { return new SubjectData (GetIndexOfCurrent, duration, subject); }
-	}
-
-
-	public void SetDetails (int index, int time, BlockTopic topic)
+	private int GetIndexOfCurrent()
 	{
-		this.drillDisplayIndex = index;
-		this.duration = time;
-		this.subject = topic;
-	}
-
-	public void SetPossibleDrills (List<BaseBlockAsset> drills)
-	{
-		possibleDrills = drills;
-	}
-
-	public void ShowRecentDrill ()
-	{
-		if (currentIndex != -1) {
-			ShowDrill (currentIndex);
-		} else {
-			ShowRandomDrill ();
-		}
-	}
-
-	public void ShowRandomDrill ()
-	{
-		int x = Random.Range (0, possibleDrills.Count);
-
-		while (x == currentIndex && !IsNewDrill (x))
+		if (PossibleDrills[CurrentIndex] != null)
 		{
-			x = Random.Range (0, possibleDrills.Count);
+			var index = sessionDataBase.Sessions.IndexOf(PossibleDrills [CurrentIndex]);
+
+			for (var i = 0; i < sessionDataBase.Sessions.Count; i++)
+			{
+				if (sessionDataBase.Sessions[i] == PossibleDrills[CurrentIndex])
+				{
+					Debug.LogFormat("index = {0}, i = {1}", index, i);
+					return i;
+				}
+			}
 		}
 
-		ShowDrill (x); 
+		return -1;
 	}
 
-	bool IsNewDrill (int x)
+
+
+	public void SetDetails(int index, int time, BlockTopic topic)
 	{
-		if (ItarateThroughDrills (x))
-			return true;
-
-		if (recents.Count == possibleDrills.Count)
-			recents.Clear ();
-
-		return ItarateThroughDrills (x);
+		DrillDisplayIndex = index;
+		Duration = time;
+		Subject = topic;
 	}
 
+	public void SetPossibleDrills(List<BaseBlockAsset> drills)
+	{
+		PossibleDrills = drills;
+	}
 
-	bool ItarateThroughDrills (int index)
+	public void ShowRecentDrill()
+	{
+		(CurrentIndex != -1).IfThenElse(
+			() => ShowDrill(CurrentIndex),
+			() => ShowRandomDrill()
+		);
+	}
+
+	public void ShowRandomDrill()
+	{
+		var x = Random.Range (0, PossibleDrills.Count);
+
+		while (x == CurrentIndex && !IsNewDrill(x))
+		{
+			x = Random.Range(0, PossibleDrills.Count);
+		}
+
+		ShowDrill(x);
+	}
+
+	private bool IsNewDrill(int x)
+	{
+		if (ItarateThroughDrills(x))
+		{
+			return true;
+		}
+
+		if (Recents.Count == PossibleDrills.Count)
+		{
+			Recents.Clear();
+		}
+
+		return ItarateThroughDrills(x);
+	}
+
+	private bool ItarateThroughDrills(int index)
 	{
 		//if the index is the same as the previous ones break;
-		for (int i = 0; i < recents.Count; i++)
-			if (index == recents [i])
+		for (var i = 0; i < Recents.Count; i++)
+		{
+			if (index == Recents[i])
+			{
 				return false;
-			else
-				continue;
+			}
+		}
 
-		recents.Add (index);
+		Recents.Add(index);
 		return true;
 	}
 
-
-	void ShowDrill (int index)
+	private void ShowDrill(int index)
 	{
-		if (index >= possibleDrills.Count) { return; }
+		if (index >= PossibleDrills.Count)
+		{ return; }
 
-		currentIndex = index;
-		BlockOutputData block = possibleDrills [index].blockStruct;
+		CurrentIndex = index;
+		BlockOutputData block = PossibleDrills [index].blockStruct;
 
-		ShowDrillBaseRootIndex (block, drillDisplayIndex, duration, subject);
+		ShowDrillBaseRootIndex(block, DrillDisplayIndex, Duration, Subject);
 	}
 }
