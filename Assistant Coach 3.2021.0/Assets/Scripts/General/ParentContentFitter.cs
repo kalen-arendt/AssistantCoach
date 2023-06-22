@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
+using My.Unity.Extensions;
 
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ParentContentFitter : MonoBehaviour
 {
-
-
 	private ChildContentFitter childContentFitter;
 	private RectTransform rectTransform;
+
+	private int framesSinceRecalculation = 0;
+	private const int RECALCULATE_AFTER_FRAMES = 30;
+
 
 	private void OnEnable()
 	{
@@ -18,39 +23,24 @@ public class ParentContentFitter : MonoBehaviour
 		rectTransform = (RectTransform)GetComponent<Transform>();
 	}
 
-	private int c = 0;
 
 	private void LateUpdate()
 	{
-		c++;
-		if (c >= 30)
+		framesSinceRecalculation++;
+		if (framesSinceRecalculation >= RECALCULATE_AFTER_FRAMES)
 		{
-			LayoutGroup[] layouts = GetComponentsInParent<LayoutGroup> ();
-			var layoutList = new List<LayoutGroup> ();
-
-			foreach (LayoutGroup lg in layouts)
+			GetComponentsInParent<LayoutGroup>().Reverse().ToList().ForEach(layout =>
 			{
-				layoutList.Add(lg);
-			}
-
-			layoutList.Reverse();
-
-
-			foreach (LayoutGroup lg in layoutList)
-			{
-				lg.CalculateLayoutInputHorizontal();
-				lg.SetLayoutVertical();
-			}
+				layout.CalculateLayoutInputHorizontal();
+				layout.SetLayoutVertical();
+			});
 		}
 	}
-
+	
 
 	public void ChangeDimentions(Vector2 SizeDelta)
 	{
-		if (rectTransform == null)
-		{
-			rectTransform = (RectTransform)GetComponent<Transform>();
-		}
+		rectTransform.Coalesce(transform);
 
 		if (rectTransform.pivot.y != 1)
 		{

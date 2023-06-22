@@ -1,5 +1,7 @@
 ﻿using System;
 
+using My.Unity.Extensions;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,10 +51,7 @@ public class ChildContentFitter : ContentSizeFitter
 
 	private void SendSizeDelta()
 	{
-		if (rectTransform == null)
-		{
-			rectTransform = (RectTransform)transform;
-		}
+		rectTransform.Coalesce(transform);
 
 		Vector2 sizeDelta = rectTransform.sizeDelta;
 

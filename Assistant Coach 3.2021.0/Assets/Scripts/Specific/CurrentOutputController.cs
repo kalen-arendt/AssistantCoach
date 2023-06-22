@@ -80,7 +80,7 @@ public class CurrentOutputController : BaseOutputSessionManager
 				)
 			);
 
-			currentOutput.SetDetails(i, Timeline.timeList[i], topics[i].topic);
+			currentOutput.SetDetails(i, Timeline.blockDurationList[i], topics[i].topic);
 			currentOutput.ShowRecentDrill();
 		}
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using My.Core.Extensions.Collections;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,31 +12,27 @@ public class Timeline : MonoBehaviour
 	[SerializeField] private List<TimeSelect> timers = new();
 	[SerializeField] private Text totalTime = null;
 	[SerializeField] private Text sessionLength = null;
+
 	private CurriculumSelection curriculum;
 
-	public static List<int> timeList = new(MAX_BLOCKS) {0,0,0,0};
+	public static List<int> blockDurationList = new(MAX_BLOCKS) { 0, 0, 0, 0 };
 
 	private const int MAX_BLOCKS = 4;
 
 
 	public static int GetTotalTime()
 	{
-		return timeList.Aggregate(
-			seed: 0,
-			func: (total, next) => total + next
-		);
+		return blockDurationList.Sum();
 	}
+
 	public int SelectionCount()
 	{
-		return timeList.Count(time => time > 0);
+		return blockDurationList.Count(time => time > 0);
 	}
 
 	private void Awake()
 	{
-		for (var i = 0; i < timers.Count; i++)
-		{
-			timers[i].Index = i;
-		}
+		timers.ForEach((timer, index) => timer.Index = index);
 	}
 
 	private void Start()
@@ -48,7 +46,7 @@ public class Timeline : MonoBehaviour
 
 	private void OnTimeChanged(int timerIndex, int time)
 	{
-		timeList[timerIndex] = time;
+		blockDurationList[timerIndex] = time;
 		UpdateTimers();
 	}
 
@@ -60,11 +58,11 @@ public class Timeline : MonoBehaviour
 		for (var i = 0; i < timers.Count; i++, min_anchor = max_anchor)
 		{
 			TimeSelect timer = timers[i];
-			var time = timeList[i];
+			var time = blockDurationList[i];
 
-			if (timeList[i] != 0)
+			if (blockDurationList[i] != 0)
 			{
-				max_anchor += timeList[i] / (float)GetTotalTime();
+				max_anchor += blockDurationList[i] / (float)GetTotalTime();
 			}
 			else if (GetTotalTime() == 0)
 			{
@@ -83,22 +81,22 @@ public class Timeline : MonoBehaviour
 
 	private void GetSavedTimes()
 	{
-		timeList = PlayerPrefsManager.Settings.Timeline;
+		blockDurationList = PlayerPrefsManager.Settings.Timeline;
 
-		for (var i = 0; i < MAX_BLOCKS ; i++)
+		for (var i = 0; i < MAX_BLOCKS; i++)
 		{
-			var startActive = timeList [i] == 0;
+			var startActive = blockDurationList [i] == 0;
 			timers[i].SetCoverActive(startActive);
 
 			if (startActive)
 			{
-				timers[i].SetTime(timeList[i]);
+				timers[i].SetTime(blockDurationList[i]);
 			}
 		}
 	}
 
 	public void SetSavedTimes()
 	{
-		PlayerPrefsManager.Settings.Timeline = timeList;
+		PlayerPrefsManager.Settings.Timeline = blockDurationList;
 	}
 }

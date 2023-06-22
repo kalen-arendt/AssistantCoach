@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using My.Unity.Extensions;
+
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -19,11 +21,7 @@ public class IconButton : UIBehaviour, IPointerClickHandler
 
 	public void SelectTopic()
 	{
-		CurriculumSelection curriculum = FindObjectOfType<CurriculumSelection>();
-		if (curriculum != null)
-		{
-			curriculum.AddEvent(CurriculumItem);
-		}
+		FindObjectOfType<CurriculumSelection>().NullIfDestroyed()?.AddEvent(CurriculumItem);
 	}
 }
 

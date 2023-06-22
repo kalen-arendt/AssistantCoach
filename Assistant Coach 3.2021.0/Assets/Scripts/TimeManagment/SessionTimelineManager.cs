@@ -4,6 +4,8 @@ using System.Linq;
 using AssistantCoach;
 using AssistantCoach.UI;
 
+using My.Core.Extensions.Collections;
+
 using UnityEngine;
 
 namespace Assets.Scripts.TimeManagment

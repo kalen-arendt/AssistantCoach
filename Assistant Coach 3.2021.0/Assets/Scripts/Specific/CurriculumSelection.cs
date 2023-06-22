@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using My.Unity.Extentions.Debugging;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +24,8 @@ public class CurriculumSelection : MonoBehaviour
 	public void AddEvent(CurriculumItem item)
 	{
 		Timeline timeline = FindObjectOfType<Timeline>();
+
+		timeline.WarnIfNotFound();
 
 		if (timeline == null )
 		{

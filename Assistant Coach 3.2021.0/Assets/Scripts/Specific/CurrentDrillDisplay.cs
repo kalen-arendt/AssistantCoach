@@ -50,10 +50,11 @@ public class CurrentDrillDisplay : BaseDrillDisplay
 
 	public void ShowRecentDrill()
 	{
-		(CurrentIndex != -1).IfThenElse(
-			() => ShowDrill(CurrentIndex),
-			() => ShowRandomDrill()
-		);
+		// TODO: fixme
+		//(CurrentIndex != -1).IfThenElse(
+		//	() => ShowDrill(CurrentIndex),
+		//	() => ShowRandomDrill()
+		//);
 	}
 
 	public void ShowRandomDrill()
